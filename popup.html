@@ -1,27 +1,68 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Getting Started with Extension's Popup</title>
-        <style>
-            body {
-                min-width:357px;
-                overflow-x:hidden;
-            }
-        img {
-            margin:5px;
-            border:2px solid black;
-            vertical-align:middle;
-            width:75px;
-            height:75px;
-        }
-        </style>
-        
-        <!-- JavaScript and HTML must be in separate files for security. -->
-        <script src="popup.js"></script>
-    </head>
-    <body>
-        <div style="text-align: center;">
-            <input type="button" value="Start Recording" id=record_button></input>
-        </div>
-    </body>
+	<head>
+	    <meta charset="utf-8">
+		<meta name="description" content="Chrome extension to transcribe audio files to text.">
+		<meta name="author" content="EECS 481">
+
+		<title>Chrome Extension transcriber.</title>
+
+		<!-- Scripts -->
+		<script src="js/jquery-2.0.3.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="popup.js"></script>
+
+		<!-- Cascading Style Sheets -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/custom.css" rel="stylesheet" media="screen">
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Transcriber</a>
+			</div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<input type="button" value="Start Recording" id=record_button></input>
+					</li>
+					<li>
+						<a href="#">Edit</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<section>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Title</th>
+						<th>Share</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1/12/17</td>
+						<td>Mark</td>
+						<td>@mdo</td>
+					</tr>
+					<tr>
+						<td>1/10/17</td>
+						<td>Jacob</td>
+						<td>@fat</td>
+					</tr>
+					<tr>
+						<td>12/09/16</td>
+						<td>Larry the Bird</td>
+						<td>@twitter</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+	</body>
 </html>
