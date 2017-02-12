@@ -13,11 +13,16 @@ function upload_btn_click(){
     
 }
 
-//Upload input click. Btn is hidden
+//Upload input click
 function upload_input_click(){
-    document.getElementById("fileUpload_input").style.left = "1200px";
-    console.log("clicked");
-    console.log(this.value)
+    // Clears file picker value
+    this.value = null;
+}
+//Upload input value change
+function upload_input_change(){
+    document.getElementById("audioFile").src = URL.createObjectURL(this.files[0]);
+    console.log(document.getElementById("audioFile").duration);
+    
 }
 
 function init() {
@@ -29,5 +34,6 @@ function init() {
 
     fileupload_input = document.querySelector('#fileUpload_input');
     fileupload_input.addEventListener('click', upload_input_click, false);
+    fileupload_input.addEventListener('change', upload_input_change, false);
 }
 document.addEventListener('DOMContentLoaded', init);
