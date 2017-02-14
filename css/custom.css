@@ -19,3 +19,31 @@ section { padding: 5px;}
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
 ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:window-inactive  { background: red; }
+
+
+div#mybutton {
+
+  /* IMPORTANT STUFF */
+  overflow: hidden;
+  position: relative;   
+
+  /* SOME STYLING */
+  width:  71px;
+  height: 34px;
+}
+
+input#myfile {
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 100px;
+  z-index: 2;
+
+  opacity: 0.0; /* Standard: FF gt 1.5, Opera, Safari */
+  filter: alpha(opacity=0); /* IE lt 8 */
+  -ms-filter: "alpha(opacity=0)"; /* IE 8 */
+  -khtml-opacity: 0.0; /* Safari 1.x */
+  -moz-opacity: 0.0; /* FF lt 1.5, Netscape */
+}

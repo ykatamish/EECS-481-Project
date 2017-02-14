@@ -29,7 +29,11 @@
 						<input class="btn btn-default navbar-btn" type="button" value="Start Recording" id="record_button"></input>
 					</li>
 					<li style="margin-left: 10px">
-						<input class="btn btn-default navbar-btn" type="button" value="Upload" id="upload_button"></input>
+						<!-- <input class="btn btn-default navbar-btn" type="button" value="Upload" id="upload_button"></input> -->
+						<div id="mybutton" class="btn btn-default" style="text-align: left">
+  							<input type="file" id="myfile" name="upload"/>
+  							Upload
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -78,6 +82,7 @@
 		<video id="audioFile" width="320" height="176" controls>
 			<source src="#" type="audio/mpeg">
 		</video>
+
 	</body>
 </html>
 
