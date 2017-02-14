@@ -29,8 +29,8 @@ function init() {
     clicker = document.querySelector('#record_button');
     clicker.addEventListener('click', showDialog, false);
 
-    upload = document.querySelector('#upload_button');
-    upload.addEventListener('click', upload_btn_click, false);
+    // upload = document.querySelector('#upload_button');
+    // upload.addEventListener('click', upload_btn_click, false);
 
     fileupload_input = document.querySelector('#fileUpload_input');
     fileupload_input.addEventListener('click', upload_input_click, false);

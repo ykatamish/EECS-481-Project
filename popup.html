@@ -28,12 +28,12 @@
 					<li>
 						<input class="btn btn-default navbar-btn" type="button" value="Start Recording" id="record_button"></input>
 					</li>
-					<li style="margin-left: 10px">
-						<!-- <input class="btn btn-default navbar-btn" type="button" value="Upload" id="upload_button"></input> -->
+					<li  id="fileUpload_li">
 						<div id="mybutton" class="btn btn-default" style="text-align: left">
-  							<input type="file" id="myfile" name="upload"/>
+  							<input id="fileUpload_input" type="file" accept="audio/*" name="upload"/>
   							Upload
 						</div>
+						<btn/>
 					</li>
 				</ul>
 			</div>
@@ -78,8 +78,8 @@
 				</tbody>
 			</table>
 		</section>
-		<input id="fileUpload_input" type="file" accept="audio/*" />
-		<video id="audioFile" width="320" height="176" controls>
+		<!--<input id="fileUpload_input" type="file" accept="audio/*" />-->
+		<video id="audioFile" width="320" height="176" controls class="hidden">
 			<source src="#" type="audio/mpeg">
 		</video>
 
