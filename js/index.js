@@ -10,7 +10,7 @@ function showDialog(){
 //Navbar upload btn click
 function upload_btn_click(){
     // document.querySelector('#upload_button').click();
-    
+
 }
 
 //Upload input click
@@ -22,7 +22,7 @@ function upload_input_click(){
 function upload_input_change(){
     document.getElementById("audioFile").src = URL.createObjectURL(this.files[0]);
     console.log(document.getElementById("audioFile").duration);
-    
+
 }
 
 function init() {
