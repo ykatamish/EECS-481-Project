@@ -21,8 +21,7 @@ function upload_input_click(){
 //Upload input value change
 function upload_input_change(){
     document.getElementById("audioFile").src = URL.createObjectURL(this.files[0]);
-    console.log(document.getElementById("audioFile").duration);
-
+    // console.log(document.getElementById("audioFile").duration);
 }
 
 function init() {

@@ -5,7 +5,7 @@ input#fileUpload_input {
   /*position: absolute;*/
   top: 0px;
   right: 0px;
-  font-size: 100px;
+  /*font-size: 100px;*/
   z-index: 2;
 
   opacity: 0.0; /* Standard: FF gt 1.5, Opera, Safari */
@@ -26,6 +26,7 @@ tr, th {
   font-size: 18px;
 }
 
+/*Disable Bootstrap navbar autocollapse at <768px*/
 .navbar-collapse.collapse {
   display: block!important;
 }
