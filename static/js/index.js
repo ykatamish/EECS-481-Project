@@ -131,16 +131,34 @@ function upload_input_click(){
 }
 //Upload input value change
 function upload_input_change(){
-    document.getElementById("audioFile").src = URL.createObjectURL(this.files[0]);
-    // console.log(document.getElementById("audioFile").duration);
+    // document.getElementById("audioFile").src = URL.createObjectURL(this.files[0]);
+    parseAudio(this.value);
+}
+
+//Parse audio with Python
+function parseAudio(audioPath) {
+    var pythonAPI = window.location.href + "api/v1/audioParse";
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=UTF-8",
+        url: pythonAPI,
+        data: JSON.stringify({ 
+                "file": audioPath
+            }),
+        success: function(response) {
+            console.log("AJAX Success.")
+            console.log(response);
+        },
+        error: function(error){
+            console.log("AJAX Error.");
+            console.log(error);
+        }
+    });
 }
 
 function init() {
     clicker = document.querySelector('#record_button');
     clicker.addEventListener('click', showDialog, false);
-
-    // upload = document.querySelector('#upload_button');
-    // upload.addEventListener('click', upload_btn_click, false);
 
     fileupload_input = document.querySelector('#fileUpload_input');
     fileupload_input.addEventListener('click', upload_input_click, false);

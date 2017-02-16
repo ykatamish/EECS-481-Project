@@ -5,18 +5,20 @@ from flask import *
 
 audioParse = Blueprint('audioParse', __name__, template_folder='templates')
 
-@audioParse.route("/api/v1/album/<albumid>")
-def albumApi(data):
+@audioParse.route("/api/v1/audioParse", methods=['POST'])
+def audioParse_route():
+    if (request.method == 'POST'):
+        content = request.get_json()
+        return (content['file'])
 
-    return ("Hello")
-    # Build JSON Object
-    # data = {
-    #     "access": albumaccess,
-    #     "albumid": albumid,
-    #     "created": created,
-    #     "lastupdate": lastupdated,
-    #     "pics": pics,
-    #     "title": title,
-    #     "username": albumusername
-    # }
-    # return jsonify(data)
+        # Build JSON Object
+        # data = {
+        #     "access": albumaccess,
+        #     "albumid": albumid,
+        #     "created": created,
+        #     "lastupdate": lastupdated,
+        #     "pics": pics,
+        #     "title": title,
+        #     "username": albumusername
+        # }
+        # return jsonify(data)
