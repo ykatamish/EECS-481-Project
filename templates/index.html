@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+		<meta name="description" content="Chrome extension to transcribe audio files to text.">
+		<meta name="author" content="EECS 481">
+
+		<title>M-Study 2</title>
+
+		<!-- Scripts -->
+		<script src="static/js/jquery-2.0.3.min.js"></script>
+		<script src="static/js/bootstrap.min.js"></script>
+		<script src="static/js/index.js"></script>
+
+		<!-- Cascading Style Sheets -->
+		<link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="static/css/custom.css" rel="stylesheet" media="screen">
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div>
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<a class="navbar-brand" href="#">
+								M-Study 2
+							</a>
+						</li>
+						<li><input class="btn btn-default navbar-btn" type="button" value="Start Recording" id="record_button"></input></li>
+						<li id="fileUpload_li">
+							<div id="mybutton" class="btn btn-default">
+  							<input id="fileUpload_input" type="file" accept="audio/*" name="upload"/>
+  							Upload
+							</div>
+						<btn/>
+					</li>
+					</ul>
+				</div>
+			</div><!-- /.container-fluid -->
+			</nav>
+
+
+		<!--Template table for recent file transcriptions-->
+		<section>
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Title</th>
+						<th>Export</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1/12/17</td>
+						<td>EECS 485 L5</td>
+						<td>
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(5)">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>1/10/17</td>
+						<td>EECS 485 L4</td>
+						<td>
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(4)">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>12/09/16</td>
+						<td>EECS 485 L3</td>
+						<td>
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(3)">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>12/07/16</td>
+						<td>EECS 485 L2</td>
+						<td>
+							<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(2)">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>12/03/16</td>
+						<td>EECS 485 L1</td>
+						<td>
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(1)">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		<!--<input id="fileUpload_input" type="file" accept="audio/*" />-->
+		<video id="audioFile" width="320" height="176" controls class="hidden">
+			<source src="#" type="audio/mpeg">
+		</video>
+	</div>
+</body>
+</html>
+
+<script>
+
+function download_func(param) {
+
+  	var dl = document.createElement('a');
+
+	if (param == 1) {
+
+		var content = "This is Lecture 1";
+		dl.setAttribute('download', 'lecture_1.txt');
+	}
+
+	else if (param == 2) {
+
+		var content = "This is Lecture 2";
+		dl.setAttribute('download', 'lecture_2.txt');
+	}
+
+	else if (param == 3) {
+
+		var content = "This is Lecture 3";
+		dl.setAttribute('download', 'lecture_3.txt');
+	}
+
+	else if (param == 4) {
+
+		var content = "This is Lecture 4";
+		dl.setAttribute('download', 'lecture_4.txt');
+	}
+
+	else if (param == 5) {
+
+		var content = "This is Lecture 5";
+		dl.setAttribute('download', 'lecture_5.txt');
+	}
+
+
+  	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
+
+  	dl.click();
+
+};
+
+</script>
