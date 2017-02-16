@@ -148,4 +148,33 @@ function download_func(param) {
 
 };
 
+function insert_row() {
+
+	// Find a <table> element with id="myTable":
+	var table = document.getElementById("mytable");
+
+	// Create an empty <tr> element and add it to the 1st position of the table:
+	var row = table.insertRow(-1);
+
+	// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+
+	// Add some text to the new cells:
+	cell1.innerHTML = "2/16/17";
+	cell2.innerHTML = "EECS 481 L2";
+		alert("blabl")
+
+	button = document.createElement("button");
+	// button.innerHTML = '<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(1)">
+	// 							<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+	// 						</a>';
+	download_func(1);
+	alert("blabl")
+	console.log('breakpoint')
+	cell3.appendChild(button);
+}
+
+
 </script>
