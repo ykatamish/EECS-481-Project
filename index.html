@@ -18,30 +18,34 @@
 	</head>
 
 	<body>
-		<!--Extension navbar-->
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#" style="outline:none;" >M-Study 2</a>
-			</div>
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<li>
-						<input class="btn btn-default navbar-btn" type="button" value="Start Recording" id="record_button"></input>
-					</li>
-					<li  id="fileUpload_li">
-						<div id="mybutton" class="btn btn-default" style="text-align: left">
+		<div class="container-fluid">
+			<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div>
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<a class="navbar-brand" href="#">
+								M-Study 2
+							</a>
+						</li>
+						<li><input class="btn btn-default navbar-btn" type="button" value="Start Recording" id="record_button"></input></li>
+						<li id="fileUpload_li">
+							<div id="mybutton" class="btn btn-default">
   							<input id="fileUpload_input" type="file" accept="audio/*" name="upload"/>
   							Upload
-						</div>
+							</div>
 						<btn/>
 					</li>
-				</ul>
-			</div>
-		</nav>
+					</ul>
+				</div>
+			</div><!-- /.container-fluid -->
+			</nav>
+
 
 		<!--Template table for recent file transcriptions-->
 		<section>
-			<table class="table table-hover">
+			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
 						<th>Date</th>
@@ -53,27 +57,47 @@
 					<tr>
 						<td>1/12/17</td>
 						<td>EECS 485 L5</td>
-						<td><a href="data:application/octet-stream;charset=utf-8,blablablabal">-></a></td>
+						<td>
+							<a type="button" class="btn btn-primary btn-block" aria-label="Left Align" href="data:application/octet-stream;charset=utf-8,blablablabal">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"/>
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>1/10/17</td>
 						<td>EECS 485 L4</td>
-						<td><a href="data:application/octet-stream;charset=utf-8,blablablabal">-></a></td>
+						<td>
+							<a type="button" class="btn btn-block btn-primary" aria-label="Left Align" href="data:application/octet-stream;charset=utf-8,blablablabal">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>12/09/16</td>
 						<td>EECS 485 L3</td>
-						<td><a href="data:application/octet-stream;charset=utf-8,blablablabal">-></a></td>
+						<td>
+							<a type="button" class="btn btn-block btn-primary" aria-label="Left Align" href="data:application/octet-stream;charset=utf-8,blablablabal">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>12/07/16</td>
 						<td>EECS 485 L2</td>
-						<td><a href="data:application/octet-stream;charset=utf-8,blablablabal">-></a></td>
+						<td>
+							<a type="button" class="btn btn-block btn-primary" aria-label="Left Align" href="data:application/octet-stream;charset=utf-8,blablablabal">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>12/03/16</td>
 						<td>EECS 485 L1</td>
-						<td><a href="data:application/octet-stream;charset=utf-8,blablablabal">-></a></td>
+						<td>
+							<a type="button" class="btn btn-block btn-primary" aria-label="Left Align" href="data:application/octet-stream;charset=utf-8,blablablabal">
+								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -82,6 +106,6 @@
 		<video id="audioFile" width="320" height="176" controls class="hidden">
 			<source src="#" type="audio/mpeg">
 		</video>
-
+</div>
 	</body>
 </html>

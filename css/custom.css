@@ -1,7 +1,8 @@
 input#fileUpload_input {
-  height: 30px;
+  height: 0px;
+  width: 80px;
   cursor: pointer;
-  position: absolute;
+  /*position: absolute;*/
   top: 0px;
   right: 0px;
   font-size: 100px;
@@ -17,4 +18,26 @@ input#fileUpload_input {
 li#fileUpload_li {
   margin-left: 10px;
   margin-top: 8px;
+}
+
+/*Higher contrast table row border*/
+tr, th {
+  border: black solid 2px !important;
+  font-size: 18px;
+}
+
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
 }
