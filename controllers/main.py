@@ -1,3 +1,5 @@
+#! /usr/bin/env python2
+
 from flask import *
 
 main = Blueprint('main', __name__, template_folder='templates')
