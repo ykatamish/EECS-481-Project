@@ -12,8 +12,10 @@ STEPS FOR FLASK:
 4- Go to http://0.0.0.0:3000/
 
 In case of no module named "flask" (only tested on Mac)
-1. C:\"easy_install pip"
-2. "pip install flask"
+
+1 - In C:\ run "easy_install pip"
+
+2 - then run "pip install flask"
 
 TODO:
 
