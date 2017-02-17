@@ -178,12 +178,10 @@ function insert_row() {
 	// Find a <table> element with id="myTable":
 	var table = document.getElementById("recentTable");
     // Create ID for row
+    var rowID = 1;
     if (table.rows.length - 1 > 0){
         var prevID = table.childNodes[3].childNodes[0].id;
         rowID = parseInt(prevID.substr(prevID.indexOf('_')+1)) + 1;
-    }
-    else{
-        var rowID = 1;
     }
 
     $("<tr></tr>").prependTo("table > tbody");
@@ -194,6 +192,12 @@ function insert_row() {
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
+    // Hidden cell containing transcript text
+    var cell4 = row.insertCell(3);
+    cell4.className = "hidden";
+    cell4.innerHTML = "This is Lecture " + rowID;
+    cell4.id = "transcriptCellItem_" + rowID;
+
 
 	// Add some text to the new cells:
     var today = new Date();
@@ -228,7 +232,7 @@ function eraseTable() {
 
 function download_func(row_num) {
   	var dl = document.createElement('a');
-	var content = "This is Lecture 1";
+    var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
     // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
     dl.setAttribute('download', (document.getElementById("titleCellItem_" + row_num).innerHTML).replace(/ /g,"_") + ".txt");
   	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
@@ -252,7 +256,7 @@ function init() {
 
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){
-            console.log(localStorage);
+            // console.log(localStorage);
             document.getElementById("recentTable").innerHTML = localStorage.tableData; 
         }  
     } else {
