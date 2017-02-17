@@ -156,6 +156,24 @@ function parseAudio(audioPath) {
     });
 }
 
+//Parse audio with Python
+function recordAudio() {
+    var pythonAPI = window.location.href + "api/v1/audioRecord";
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=UTF-8",
+        url: pythonAPI,
+        success: function(response) {
+            console.log("AJAX Success.")
+            console.log(response);
+        },
+        error: function(error){
+            console.log("AJAX Error.");
+            console.log(error);
+        }
+    });
+}
+
 function insert_row() {
 	// Find a <table> element with id="myTable":
 	var table = document.getElementById("recentTable");
