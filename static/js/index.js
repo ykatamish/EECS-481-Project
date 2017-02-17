@@ -157,14 +157,21 @@ function parseAudio(audioPath) {
 }
 
 function insert_row() {
-
 	// Find a <table> element with id="myTable":
 	var table = document.getElementById("recentTable");
+    // Create ID for row
+    if (table.rows.length - 1 > 0){
+        var prevID = table.childNodes[3].childNodes[0].id;
+        rowID = parseInt(prevID.substr(prevID.indexOf('_')+1)) + 1;
+    }
+    else{
+        var rowID = 1;
+    }
+
     $("<tr></tr>").prependTo("table > tbody");
-    
-	// Create an empty <tr> element and add it to the 1st position of the table:
+	// Modify recent row
 	var row = table.childNodes[3].childNodes[0];
-    row.id = "rowItem_" + (table.rows.length - 1);
+    row.id = "rowItem_" + rowID;
 	// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
@@ -176,18 +183,35 @@ function insert_row() {
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
 	cell1.innerHTML = mm + '/' + dd + '/' + yyyy;
-	cell2.innerHTML = "EECS 481 L" + (table.rows.length - 1);
-    cell2.id = "titleCellItem_" + (table.rows.length - 1);
+	cell2.innerHTML = "EECS 481 L" + rowID;
+    cell2.id = "titleCellItem_" + rowID;
     cell2.className = "cellTitle";
     // Cell btn and onclick ID to pass into download_func(row_num)
     
-	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + (table.rows.length - 1) + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>'
+	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
+
+    // Max table size set at 8. (TODO: Fix ids. Will indefinitely increase...)
+    if (table.rows.length - 1 > 8){
+        table.deleteRow(table.rows.length - 1);
+    }
+
+    // Localstorage. Store  
+    localStorage.setItem("tableData", table.innerHTML);
+}
+
+// Erase table contents
+function eraseTable() {
+    var table = document.getElementById("recentTable");
+    while (table.rows.length > 1){
+        table.deleteRow(table.rows.length - 1);
+    }
+    localStorage.clear();
 }
 
 function download_func(row_num) {
   	var dl = document.createElement('a');
 	var content = "This is Lecture 1";
-    // File of title is Cell Title with underscores instead of spaces
+    // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
     dl.setAttribute('download', (document.getElementById("titleCellItem_" + row_num).innerHTML).replace(/ /g,"_") + ".txt");
   	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
   	dl.click();
@@ -202,7 +226,19 @@ function init() {
     fileupload_input.addEventListener('click', upload_input_click, false);
     fileupload_input.addEventListener('change', upload_input_change, false);
 
-    fileupload_input1 = document.querySelector('#addRow');
-    fileupload_input1.addEventListener('click', insert_row, false);
+    // TEST BUTTONS. ADD ROW. ERASE TABLE
+    ADDROW = document.querySelector('#addRow');
+    ADDROW.addEventListener('click', insert_row, false);
+    ERASETABLE = document.querySelector('#eraseTable');
+    ERASETABLE.addEventListener('click', eraseTable, false);
+
+    if (typeof(Storage) !== "undefined") {
+        if (localStorage.length > 0){
+            console.log(localStorage);
+            document.getElementById("recentTable").innerHTML = localStorage.tableData; 
+        }  
+    } else {
+        console.log("Sorry! No Web Storage support...");
+    }
 }
 document.addEventListener('DOMContentLoaded', init);
