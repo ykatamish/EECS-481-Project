@@ -17,6 +17,11 @@ In case of no module named "flask" (only tested on Mac)
 
 2 - then run "pip install flask"
 
+Installing pyaudio on MAC
+
+1 - brew install portaudio 
+2 - pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
+
 TODO:
 
 1- integrate with flask (for python use) DONE
