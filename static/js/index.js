@@ -156,6 +156,44 @@ function parseAudio(audioPath) {
     });
 }
 
+function insert_row() {
+
+	// Find a <table> element with id="myTable":
+	var table = document.getElementById("recentTable");
+    $("<tr></tr>").prependTo("table > tbody");
+    
+	// Create an empty <tr> element and add it to the 1st position of the table:
+	var row = table.childNodes[3].childNodes[0];
+    row.id = "rowItem_" + (table.rows.length - 1);
+	// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+
+	// Add some text to the new cells:
+    var today = new Date();
+    var dd  = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+	cell1.innerHTML = mm + '/' + dd + '/' + yyyy;
+	cell2.innerHTML = "EECS 481 L" + (table.rows.length - 1);
+    cell2.id = "titleCellItem_" + (table.rows.length - 1);
+    cell2.className = "cellTitle";
+    // Cell btn and onclick ID to pass into download_func(row_num)
+    
+	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + (table.rows.length - 1) + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>'
+}
+
+function download_func(row_num) {
+  	var dl = document.createElement('a');
+	var content = "This is Lecture 1";
+    // File of title is Cell Title with underscores instead of spaces
+    dl.setAttribute('download', (document.getElementById("titleCellItem_" + row_num).innerHTML).replace(/ /g,"_") + ".txt");
+  	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
+  	dl.click();
+
+};
+
 function init() {
     clicker = document.querySelector('#record_button');
     clicker.addEventListener('click', showDialog, false);
@@ -163,5 +201,8 @@ function init() {
     fileupload_input = document.querySelector('#fileUpload_input');
     fileupload_input.addEventListener('click', upload_input_click, false);
     fileupload_input.addEventListener('change', upload_input_change, false);
+
+    fileupload_input1 = document.querySelector('#addRow');
+    fileupload_input1.addEventListener('click', insert_row, false);
 }
 document.addEventListener('DOMContentLoaded', init);

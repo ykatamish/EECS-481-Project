@@ -39,12 +39,13 @@
 					</ul>
 				</div>
 			</div><!-- /.container-fluid -->
+			<button id="addRow">Add Row</button>
 			</nav>
 
 
 		<!--Template table for recent file transcriptions-->
 		<section>
-			<table class="table table-hover table-striped">
+			<table id="recentTable" class="table table-hover table-striped">
 				<thead>
 					<tr>
 						<th>Date</th>
@@ -53,128 +54,54 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<!--<tr>
 						<td>1/12/17</td>
-						<td>EECS 485 L5</td>
+						<td class="fileTitle">EECS 485 L5</td>
 						<td>
-							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(5)">
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(this.type)">
 								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>1/10/17</td>
-						<td>EECS 485 L4</td>
+						<td class="fileTitle">EECS 485 L4</td>
 						<td>
-							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(4)">
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func()">
 								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>12/09/16</td>
-						<td>EECS 485 L3</td>
+						<td class="fileTitle">EECS 485 L3</td>
 						<td>
-							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(3)">
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func()">
 								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>12/07/16</td>
-						<td>EECS 485 L2</td>
+						<td class="fileTitle">EECS 485 L2</td>
 						<td>
-							<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(2)">
+							<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func()">
 								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>12/03/16</td>
-						<td>EECS 485 L1</td>
+						<td class="fileTitle">EECS 485 L1</td>
 						<td>
-							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(1)">
+							<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func()">
 								<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
 							</a>
 						</td>
-					</tr>
+					</tr>-->
 				</tbody>
 			</table>
 		</section>
 	</div>
 </body>
 </html>
-
-<script>
-
-function download_func(param) {
-
-  	var dl = document.createElement('a');
-
-	if (param == 1) {
-
-		var content = "This is Lecture 1";
-		dl.setAttribute('download', 'lecture_1.txt');
-	}
-
-	else if (param == 2) {
-
-		var content = "This is Lecture 2";
-		dl.setAttribute('download', 'lecture_2.txt');
-	}
-
-	else if (param == 3) {
-
-		var content = "This is Lecture 3";
-		dl.setAttribute('download', 'lecture_3.txt');
-	}
-
-	else if (param == 4) {
-
-		var content = "This is Lecture 4";
-		dl.setAttribute('download', 'lecture_4.txt');
-	}
-
-	else if (param == 5) {
-
-		var content = "This is Lecture 5";
-		dl.setAttribute('download', 'lecture_5.txt');
-	}
-
-
-  	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
-
-  	dl.click();
-
-};
-
-function insert_row() {
-
-	// Find a <table> element with id="myTable":
-	var table = document.getElementById("mytable");
-
-	// Create an empty <tr> element and add it to the 1st position of the table:
-	var row = table.insertRow(-1);
-
-	// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-	var cell1 = row.insertCell(0);
-	var cell2 = row.insertCell(1);
-	var cell3 = row.insertCell(2);
-
-	// Add some text to the new cells:
-	cell1.innerHTML = "2/16/17";
-	cell2.innerHTML = "EECS 481 L2";
-		alert("blabl")
-
-	button = document.createElement("button");
-	// button.innerHTML = '<button id="downloadbutton" type="button" class="btn btn-block btn-primary" aria-label="Left Align" onClick="download_func(1)">
-	// 							<span class="glyphicon glyphicon-download" aria-hidden="true"></span>
-	// 						</a>';
-	download_func(1);
-	alert("blabl")
-	console.log('breakpoint')
-	cell3.appendChild(button);
-}
-
-
-</script>
