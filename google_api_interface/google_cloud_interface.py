@@ -28,7 +28,7 @@ dir_path = "/Users/joey/Desktop/"
 bash_command_begin = "./sox "
 bash_command_end = "-t raw --channels=1 --bits=16 --rate=16000 --encoding=signed-integer --endian=little "
 output_file_name = "output.raw"
-full_bash_command = bash_comamnd_begin + input_file_name + bash_command_end + output_file_name
+full_bash_command = bash_command_begin + input_file_name + bash_command_end + output_file_name
 os.system(full_bash_command)
 
 

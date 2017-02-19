@@ -69,7 +69,6 @@ def audioRecord_route():
 		## interface with storage:
 		bucket_name = "brad-mstudy-481"
 
-
 		storage_client = storage.Client()
 		bucket = storage_client.get_bucket(bucket_name)
 		full_path = dir_path + output_file_name

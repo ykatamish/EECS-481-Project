@@ -25,16 +25,16 @@ function showDialog(){
 }
 function startUserMedia(stream) {
     var input = audio_context.createMediaStreamSource(stream);
-    console.log('Media stream created.');
+    // console.log('Media stream created.');
     
     volume = audio_context.createGain();
     volume.gain.value = volumeLevel;
     input.connect(volume);
     volume.connect(audio_context.destination);
-    console.log('Input connected to audio context destination.');
+    // console.log('Input connected to audio context destination.');
     
     recorder = new Recorder(input);
-    console.log('Recorder initialised.');
+    // console.log('Recorder initialised.');
 }
 
 function createDownloadLink() {
@@ -107,8 +107,8 @@ window.onload = function init() {
         window.URL = window.URL || window.webkitURL || window.mozURL;
         
         audio_context = new AudioContext();
-        console.log('Audio context set up.');
-        console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+        // console.log('Audio context set up.');
+        // console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
     } catch (e) {
         console.warn('No web audio support in this browser!');
     }
@@ -118,37 +118,28 @@ window.onload = function init() {
                            });
 };
 
-//Navbar upload btn click
-function upload_btn_click(){
-    // document.querySelector('#upload_button').click();
-
-}
-
-//Upload input click
-function upload_input_click(){
-    // Clears file picker value
-    this.value = null;
-}
 //Upload input value change
 function upload_input_change(){
-    // document.getElementById("audioFile").src = URL.createObjectURL(this.files[0]);
-    parseAudio(this.value);
+    formdata = new FormData();
+    formdata.append("upload", this.files[0]);
+    parseAudio(formdata);
 }
 
 //Parse audio with Python
-function parseAudio(audioPath) {
+function parseAudio(audioFile) {
     openLoading();
-    var pythonAPI = window.location.href + "api/v1/audioParse";
+    console.log("Start AJAX");
+    var pythonAPI = window.location.href + "api/v1/uploadParse";
     $.ajax({
         type: "POST",
-        contentType: "application/json; charset=UTF-8",
         url: pythonAPI,
-        data: JSON.stringify({ 
-                "file": audioPath
-            }),
+        data: audioFile,
+        processData: false,
+        contentType: false,
         success: function(response) {
             console.log("AJAX Success.")
             console.log(response);
+            insert_row(response);
             closeLoading();
         },
         error: function(error){
@@ -279,7 +270,7 @@ function closeLoading() {
 
 function download_func(row_num) {
   	var dl = document.createElement('a');
-    var content = document.getElementById("titleInputItem_" + row_num).value;
+    var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
     // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
     dl.setAttribute('download', (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".txt");
   	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
@@ -292,7 +283,6 @@ function init() {
     clicker.addEventListener('click', recordAudio, false);
 
     fileupload_input = document.querySelector('#fileUpload_input');
-    fileupload_input.addEventListener('click', upload_input_click, false);
     fileupload_input.addEventListener('change', upload_input_change, false);
 
     ERASETABLE = document.querySelector('#eraseTable');
