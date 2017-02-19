@@ -166,6 +166,9 @@ function recordAudio() {
         success: function(response) {
             console.log("AJAX Success.")
             console.log(response);
+            insert_row(response);
+
+
         },
         error: function(error){
             console.log("AJAX Error.");
@@ -174,7 +177,7 @@ function recordAudio() {
     });
 }
 
-function insert_row() {
+function insert_row(text_input) {
 	// Find a <table> element with id="myTable":
 	var table = document.getElementById("recentTable");
     // Create ID for row
@@ -195,7 +198,7 @@ function insert_row() {
     // Hidden cell containing transcript text
     var cell4 = row.insertCell(3);
     cell4.className = "hidden";
-    cell4.innerHTML = "This is Lecture " + rowID;
+    cell4.innerHTML = "This is Lecture " + rowID + ": " + text_input;
     cell4.id = "transcriptCellItem_" + rowID;
 
 

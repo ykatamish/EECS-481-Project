@@ -99,13 +99,12 @@ def audioRecord_route():
 
 		print(full_transcript)
 
-		"""
 
+		"""
 		for result in operation.results:
 		    print '=' * 20
 		    print result.transcript
 		    print result.confidence 
 		"""
 
-		
-   		return ("Hello World")
+   		return full_transcript
