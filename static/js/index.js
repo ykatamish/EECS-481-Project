@@ -246,6 +246,19 @@ function eraseTable() {
         table.deleteRow(table.rows.length - 1);
     }
     localStorage.clear();
+    closeAlert();
+}
+
+// Open alert to clear table
+function openAlert() {
+    document.getElementById("deleteHistory_alert").style.visibility = "visible";
+    document.getElementById("deleteHistory_alert").style.display = "block";
+}
+
+// Open alert to clear table
+function closeAlert() {
+    document.getElementById("deleteHistory_alert").style.visibility = "hidden";
+    document.getElementById("deleteHistory_alert").style.display = "none";
 }
 
 function download_func(row_num) {
@@ -266,11 +279,22 @@ function init() {
     fileupload_input.addEventListener('click', upload_input_click, false);
     fileupload_input.addEventListener('change', upload_input_change, false);
 
+    ERASETABLE = document.querySelector('#eraseTable');
+    ERASETABLE.addEventListener('click', eraseTable, false);
+
+    startAlert = document.querySelector('#clear_button');
+    startAlert.addEventListener('click', openAlert, false);
+
+    endAlert1 = document.querySelector('#historyCancel_btn');
+    endAlert1.addEventListener('click', closeAlert, false);
+    endAlert2 = document.querySelector('#x_cancel');
+    endAlert2.addEventListener('click', closeAlert, false);
+
     // TEST BUTTONS. ADD ROW. ERASE TABLE
     ADDROW = document.querySelector('#addRow');
     ADDROW.addEventListener('click', insert_row, false);
-    ERASETABLE = document.querySelector('#eraseTable');
-    ERASETABLE.addEventListener('click', eraseTable, false);
+    
+
 
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){

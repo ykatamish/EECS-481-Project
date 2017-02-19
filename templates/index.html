@@ -36,16 +36,22 @@
   							Upload
 							</div>
 					</li>
+					<li><input class="btn btn-default navbar-btn" type="button" value="Clear History" id="clear_button" style="margin-left:10px;"></input></li>
 					</ul>
 				</div>
 			</div><!-- /.container-fluid -->
 			<button id="addRow">Add Row</button>
-			<button id="eraseTable">Erase Table</button>
 			</nav>
 
 
 		<!--Template table for recent file transcriptions-->
 		<section>
+			<div id="deleteHistory_alert" class="alert alert-danger fade in" role="alert" style="visibility: hidden; display: none;" >
+				<button type="button" class="close" aria-label="Close" id="x_cancel"><span aria-hidden="true">&times;</span></button>
+				<p><strong>Warning.</strong> Are you sure you want to clear all recent history?</p><br>
+				<button id="eraseTable" class="btn btn-danger">Clear All</button>
+				<button id="historyCancel_btn" class="btn btn-default">Cancel</button>
+			</div>
 			<table id="recentTable" class="table table-hover table-striped">
 				<thead>
 					<tr>
