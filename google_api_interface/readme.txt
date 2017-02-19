@@ -16,9 +16,11 @@ $gcloud init
 It will ask you a series of questions, for the first one, type in:
 Do you want to help improve the Google Cloud SDK?
 n
+
 for the second one, type in:
 Modify profile to update your $PATH and enable shell command completion?
 Y
+
 for the last one, simply press enter (i.e leave it blank)
 Enter a path to an rc file to update, or leave blank to use 
 [/Users/.../.bash_profile]:
