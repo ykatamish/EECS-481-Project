@@ -27,11 +27,11 @@ TODO:
 
 1- integrate with flask (for python use) DONE
 
-2- connect the Google API
+2- connect the Google API DONE
 
-3- slice up the audio file
+3- slice up the audio file [May not be necessary]
 
-4- get recording from microphone
+4- get recording from microphone DONE
 
 5- save old lecture to disk
 
