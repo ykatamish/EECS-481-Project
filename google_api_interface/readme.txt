@@ -33,7 +33,7 @@ You must log in to continue. Would you like to log in (Y/n)?
 
 It will redirect you to a google login page on your default browser, the credentials are:
 email: brad.481.project@gmail.com
-password: brad_chesney
+password: [SEE THE COMMENT ON THE CANVAS PAGE]
 after that, you will need to authorize the account.
 
 You will then move outside of the directory:
