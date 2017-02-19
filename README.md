@@ -17,7 +17,7 @@ Below is a list of steps to run the project:
 4- follow the Google API install steps (reference the readme in the google_api_interface directory)
 
 
-STEPS FOR FLASK:
+**STEPS FOR FLASK**
 
 1- Navigate to EECS-481-Project in terminal
 
@@ -27,12 +27,14 @@ STEPS FOR FLASK:
 
 4- Go to http://0.0.0.0:3000/
 
-In case of no module named "flask" (only tested on Mac)
+**In case of no module named "flask" (only tested on Mac)**
+
 1 - In C:\ run "easy_install pip"
 
 2 - then run "pip install flask"
 
-Installing pyaudio on MAC
+**Installing pyaudio on MAC**
+
 1 - brew install portaudio
 
 2 - pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
