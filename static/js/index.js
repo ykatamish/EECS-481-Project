@@ -205,7 +205,8 @@ function insert_row() {
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
 	cell1.innerHTML = mm + '/' + dd + '/' + yyyy;
-	cell2.innerHTML = "EECS 481 L" + rowID;
+	cell2.innerHTML = '<input type="text" id="titleInputItem_' + rowID + '" value="EECS 481 L' + rowID + '"onfocusout="update_localStorage('+rowID+')"/>'
+    // "EECS 481 L" + rowID;
     cell2.id = "titleCellItem_" + rowID;
     cell2.className = "cellTitle";
     // Cell btn and onclick ID to pass into download_func(row_num)
@@ -221,6 +222,20 @@ function insert_row() {
     localStorage.setItem("tableData", table.innerHTML);
 }
 
+// Update local storage after a title edit is made
+function update_localStorage(item_id) {
+
+    // Update HTML cell value
+    document.getElementById("titleCellItem_"+item_id).value
+    var cell2 = document.getElementById("titleCellItem_"+item_id)
+    cell2.innerHTML = '<input type="text" id="titleInputItem_' + item_id + '" value="' + document.getElementById("titleInputItem_"+item_id).value + '"onfocusout="update_localStorage(' + item_id + ')"/>'
+    
+    // Push to local storage
+    var table = document.getElementById("recentTable");
+    localStorage.setItem("tableData", table.innerHTML);
+}
+
+
 // Erase table contents
 function eraseTable() {
     var table = document.getElementById("recentTable");
@@ -232,9 +247,9 @@ function eraseTable() {
 
 function download_func(row_num) {
   	var dl = document.createElement('a');
-    var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
+    var content = document.getElementById("titleInputItem_" + row_num).value;
     // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
-    dl.setAttribute('download', (document.getElementById("titleCellItem_" + row_num).innerHTML).replace(/ /g,"_") + ".txt");
+    dl.setAttribute('download', (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".txt");
   	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
   	dl.click();
 
