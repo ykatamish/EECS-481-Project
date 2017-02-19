@@ -34,7 +34,7 @@ def uploadParse_route():
     if (request.method == 'POST'):
         
         file = request.files['upload']
-        file.save(os.path.join('/Users/dylan/documents/EECS481', "output.wav"))
+        file.save(os.path.join(os.getcwd() + "/", "output.wav"))
 
         dir_path = os.getcwd() + "/"
         
