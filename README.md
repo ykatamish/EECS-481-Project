@@ -1,16 +1,16 @@
 # EECS-481-Project
 
-Project Description:
+**Project Description:**
 A web app project to transcribe recordings using Google speech to text API. Since the project is not fully deployed on a server, it requires a lot of quick setups on the local machine where it will be run.
 
-Dependencies Used:
+**Dependencies Used:**
 - Flask
 - PyAudio
 - Google API Speech Platform
 - SOX
 - Virtual Environment to launch flask
 
-Below is a list of steps to run the project:
+**Below is a list of steps to run the project:**
 1- Setup FLASK (instructions below). This version requires Python 2.7 and is incompatible with python 3
 2- run the virtual environment
 3- install pyaudio
@@ -27,11 +27,13 @@ Below is a list of steps to run the project:
 
 4- Go to http://0.0.0.0:3000/
 
+
 **In case of no module named "flask" (only tested on Mac)**
 
 1 - In C:\ run "easy_install pip"
 
 2 - then run "pip install flask"
+
 
 **Installing pyaudio on MAC**
 
