@@ -48,7 +48,7 @@ with open(dir_path + output_file_name, 'rb') as my_file:
 uri_path = "gs://" + bucket_name + "/" + output_file_name
 speech_client = speech.Client()
 sample = speech_client.sample(source_uri=uri_path, encoding=speech.Encoding.LINEAR16, sample_rate=16000)
-operation = sample.async_recognize(max_alternatives=2)
+operation = sample.async_recognize(max_alternatives=1)
 retry_count = 100
 
 while retry_count > 0 and not operation.complete:

@@ -153,6 +153,21 @@ function parseAudio(audioFile) {
 //Parse audio with Python
 function recordAudio() {
     openLoading();
+
+    document.getElementById("recordingTimer_p").style.visibility = "visible";
+    document.getElementById("recordingTimer_p").style.display = "block";
+
+    document.getElementById("loadingText_p").style.visibility = "hidden";
+    document.getElementById("loadingText_p").style.display = "none";
+
+    setInterval(function(){
+        document.getElementById("recordingTimer_p").style.visibility = "hidden";
+        document.getElementById("recordingTimer_p").style.display = "none";
+
+        document.getElementById("loadingText_p").style.visibility = "visible";
+        document.getElementById("loadingText_p").style.display = "block";
+    }, 10000);
+
     var pythonAPI = window.location.href + "api/v1/audioRecord";
     $.ajax({
         type: "GET",
