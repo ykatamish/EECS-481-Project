@@ -43,6 +43,11 @@ You will also need to install SoX and then drag the executible into the same fol
 
 
 
+You will need to export the credentials: (put in the path in the correct area)
+export GOOGLE_APPLICATION_CREDENTIALS=[PUT IN THE PATH HERE]credentials.json
+
+
+
 
 
 
