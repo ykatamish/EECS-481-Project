@@ -33,7 +33,14 @@ and then run this command:
 $gcloud beta auth application-default login
 Press 
 Y
-You will be asked to authorize the account one more time
+You will be asked to authorize the account one more time.
+
+You will need to install the python google cloud libraries, which are:
+pip install --upgrade google-cloud-speech
+pip install --upgrade google-cloud-storage
+
+
+
 
 
 
