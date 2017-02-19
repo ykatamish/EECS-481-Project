@@ -24,17 +24,5 @@ Installing pyaudio on MAC
 2 - pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
 
 For Installation instructions of how to install the google_api reference the readme in the google_api_interface directory
-TODO:
 
-1- integrate with flask (for python use) DONE
-
-2- connect the Google API DONE
-
-3- slice up the audio file [May not be necessary]
-
-4- get recording from microphone DONE
-
-5- save old lecture to disk
-
-6- Recording playback
 
