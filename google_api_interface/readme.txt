@@ -1,4 +1,6 @@
-Download the sdk file: https://cloud.google.com/sdk/
+NOTE: this requires python 2.7
+
+Download the sdk file for the website: https://cloud.google.com/sdk/
 After that, run:
 $./install.sh
 in the file.
