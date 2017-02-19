@@ -4,6 +4,8 @@ Download the sdk file for the website: https://cloud.google.com/sdk/
 
 Depending on your brower, you might need to unzip the file.
 
+Run all of the below commands while in the Python/Flask virtual environment.
+
 After unzipping the file, run:
 $./install.sh
 in the file that was just unzipped.
@@ -12,16 +14,21 @@ After that, run the command:
 $gcloud init
 
 It will ask you a series of questions, for the first one, type in:
+Do you want to help improve the Google Cloud SDK?
 n
 for the second one, type in:
+Modify profile to update your $PATH and enable shell command completion?
 Y
 for the last one, simply press enter (i.e leave it blank)
+Enter a path to an rc file to update, or leave blank to use 
+[/Users/.../.bash_profile]:
 
 You will need to restart your shell in order to have gcloud installed.
 $gcloud init
 
-It will ask you to log in, press 
-Y
+It will ask you to log in, press Y
+You must log in to continue. Would you like to log in (Y/n)?  
+
 It will redirect you to a google login page on your default browser, the credentials are:
 email: brad.481.project@gmail.com
 password: brad_chesney
@@ -38,6 +45,10 @@ You will be asked to authorize the account one more time.
 You will need to install the python google cloud libraries, which are:
 $pip install --upgrade google-cloud-speech
 $pip install --upgrade google-cloud-storage
+
+Commands may require sudo:
+$sudo -H pip install --ignore-installed six  --upgrade google-cloud-speech
+$sudo -H pip install --ignore-installed six  --upgrade google-cloud-storage
 
 If, while trying to run the above commands, you receive and error similar to
 " MARKER_EXPR = originalTextFor(MARKER_EXPR())("marker")
