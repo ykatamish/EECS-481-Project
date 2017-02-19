@@ -137,6 +137,7 @@ function upload_input_change(){
 
 //Parse audio with Python
 function parseAudio(audioPath) {
+    openLoading();
     var pythonAPI = window.location.href + "api/v1/audioParse";
     $.ajax({
         type: "POST",
@@ -148,16 +149,19 @@ function parseAudio(audioPath) {
         success: function(response) {
             console.log("AJAX Success.")
             console.log(response);
+            closeLoading();
         },
         error: function(error){
             console.log("AJAX Error.");
             console.log(error);
+            closeLoading();
         }
     });
 }
 
 //Parse audio with Python
 function recordAudio() {
+    openLoading();
     var pythonAPI = window.location.href + "api/v1/audioRecord";
     $.ajax({
         type: "GET",
@@ -167,12 +171,12 @@ function recordAudio() {
             console.log("AJAX Success.")
             console.log(response);
             insert_row(response);
-
-
+            closeLoading();
         },
         error: function(error){
             console.log("AJAX Error.");
             console.log(error);
+            closeLoading();
         }
     });
 }
@@ -249,16 +253,28 @@ function eraseTable() {
     closeAlert();
 }
 
-// Open alert to clear table
+// Open history alert to clear table
 function openAlert() {
     document.getElementById("deleteHistory_alert").style.visibility = "visible";
     document.getElementById("deleteHistory_alert").style.display = "block";
 }
 
-// Open alert to clear table
+// Open history alert to clear table
 function closeAlert() {
     document.getElementById("deleteHistory_alert").style.visibility = "hidden";
     document.getElementById("deleteHistory_alert").style.display = "none";
+}
+
+// Open alert to clear table
+function openLoading() {
+    document.getElementById("ajaxloading_alert").style.visibility = "visible";
+    document.getElementById("ajaxloading_alert").style.display = "block";
+}
+
+// Open alert to clear table
+function closeLoading() {
+    document.getElementById("ajaxloading_alert").style.visibility = "hidden";
+    document.getElementById("ajaxloading_alert").style.display = "none";
 }
 
 function download_func(row_num) {
