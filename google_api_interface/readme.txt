@@ -39,6 +39,15 @@ You will need to install the python google cloud libraries, which are:
 $pip install --upgrade google-cloud-speech
 $pip install --upgrade google-cloud-storage
 
+If, while trying to run the above commands you receive and error such as 
+" MARKER_EXPR = originalTextFor(MARKER_EXPR())("marker")
+TypeError: __call__() takes exactly 2 arguments (1 given)"
+
+try running the command 
+
+$pip install setuptools==33.1.1
+
+
 You will also need to install SoX and then drag the executible into the same folder as the python code. The link to download is: https://sourceforge.net/projects/sox/files/sox/
 
 
