@@ -39,7 +39,7 @@ You will need to install the python google cloud libraries, which are:
 $pip install --upgrade google-cloud-speech
 $pip install --upgrade google-cloud-storage
 
-If, while trying to run the above commands you receive and error such as 
+If, while trying to run the above commands, you receive and error similar to
 " MARKER_EXPR = originalTextFor(MARKER_EXPR())("marker")
 TypeError: __call__() takes exactly 2 arguments (1 given)"
 
@@ -56,7 +56,19 @@ You will need to export the credentials: (put in the path in the correct area)
 export GOOGLE_APPLICATION_CREDENTIALS=[PUT IN THE PATH HERE]credentials_key.json
 
 
+If, while running the application, you get an error similar to
+Undefined error: 'Module_six_moves_urllib_parse' object has no attribute 'urlencode'
 
+run the command
+$export PYTHONPATH=/Library/Python/2.7/site-packages
+
+You'll need to add that line to you ~/.bashrc file to ensure it's set for each terminal window.
+Which you can do by running the command
+$nano ~/.bashrc
+
+now copy and paste 
+PYTHONPATH=/Library/Python/2.7/site-packages
+and save the file
 
 
 
