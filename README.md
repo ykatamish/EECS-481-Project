@@ -9,6 +9,7 @@ A web app project to transcribe recordings using Google speech to text API. Sinc
 - Download the lecture transcripts (in .txt format)
 - Data persistence in the browser cache (persists if tab is closed)
 - Ability to clear file history (using "Clear History" button)
+- Ability to rename a lecture recording
 
 
 **Dependencies Used:**
