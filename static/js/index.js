@@ -296,12 +296,6 @@ function init() {
     endAlert2 = document.querySelector('#x_cancel');
     endAlert2.addEventListener('click', closeAlert, false);
 
-    // TEST BUTTONS. ADD ROW. ERASE TABLE
-    ADDROW = document.querySelector('#addRow');
-    ADDROW.addEventListener('click', insert_row, false);
-    
-
-
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){
             // console.log(localStorage);
