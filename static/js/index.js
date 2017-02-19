@@ -257,7 +257,7 @@ function download_func(row_num) {
 
 function init() {
     clicker = document.querySelector('#record_button');
-    clicker.addEventListener('click', showDialog, false);
+    clicker.addEventListener('click', recordAudio, false);
 
     fileupload_input = document.querySelector('#fileUpload_input');
     fileupload_input.addEventListener('click', upload_input_click, false);
