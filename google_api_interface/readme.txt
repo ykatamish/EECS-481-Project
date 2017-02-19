@@ -1,4 +1,4 @@
-NOTE: this requires python 2.7
+NOTE: this requires python 2.7, pip
 
 Download the sdk file for the website: https://cloud.google.com/sdk/
 
@@ -36,8 +36,11 @@ Y
 You will be asked to authorize the account one more time.
 
 You will need to install the python google cloud libraries, which are:
-pip install --upgrade google-cloud-speech
-pip install --upgrade google-cloud-storage
+$pip install --upgrade google-cloud-speech
+$pip install --upgrade google-cloud-storage
+
+You will also need to install SoX and then drag the executible into the same folder as the python code. The link to download is: https://sourceforge.net/projects/sox/files/sox/
+
 
 
 
