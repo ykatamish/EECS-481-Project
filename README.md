@@ -1,7 +1,7 @@
 # EECS-481-Project
 
 **Project Description:**
-A web app project to transcribe recordings using Google speech to text API. Since the project is not fully deployed on a server, it requires a lot of quick setups on the local machine where it will be run. The instruction have only been tested on MAC.
+A web app project to transcribe recordings using Google speech to text API. Since the project is not fully deployed on a server, it requires a lot of quick setups on the local machine where it will be run. The instruction have only been tested on MAC. There is a directory names "sample audio files" which are usefull for testing the upload feature.
 
 **List of implemented features:**
 - Recording from the computer microphone (10 second per interval)
