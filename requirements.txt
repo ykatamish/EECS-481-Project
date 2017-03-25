@@ -37,6 +37,7 @@ grpc-google-cloud-pubsub-v1==0.14.0
 grpc-google-cloud-speech-v1beta1==0.14.0
 grpc-google-iam-v1==0.11.1
 grpcio==1.1.0
+gunicorn==19.4.5
 httplib2==0.10.3
 itsdangerous==0.24
 Jinja2==2.9.5
