@@ -1,4 +1,4 @@
-appdirs==1.4.0
+appdirs==1.4.3
 click==6.7
 dill==0.2.6
 enum34==1.1.6
