@@ -321,3 +321,38 @@ function init() {
     }
 }
 document.addEventListener('DOMContentLoaded', init);
+
+
+$('.shopper').popover({
+  content: "varContent",
+  html: true,
+  placement: 'bottom'
+});
+
+// Settings Popover
+$('.shopper').popover({
+  content: "Customize your preferences.",
+  html: true,
+  placement: 'bottom'
+});
+
+// Clear History Popover
+$('.shopper').popover({
+  content: "Permanently Clear all recent history.",
+  html: true,
+  placement: 'bottom'
+});
+
+// Upload Popover
+$('.shopper').popover({
+  content: "Upload an audio file to retrieve text.",
+  html: true,
+  placement: 'bottom'
+});
+
+// Start Recording Popover
+$('.shopper').popover({
+  content: "Live record audio using the browser.",
+  html: true,
+  placement: 'bottom'
+});
