@@ -356,3 +356,7 @@ $('.shopper').popover({
   html: true,
   placement: 'bottom'
 });
+
+// $('#trigger').click(function(){
+//   $('.shopper').popover('toggle');
+// });
