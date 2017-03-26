@@ -39,10 +39,10 @@
 				<li><input class="btn btn-default navbar-btn" type="button" value="Start Recording" id="record_button" style="margin-left:10px;"></input></li>
 				<li id="fileUpload_li"><span id="mybutton" class="btn btn-default" ><input id="fileUpload_input" type="file" accept="audio/*" name="upload" />Upload</span></li>
 				<li><input class="btn btn-default navbar-btn" type="button" value="Clear History" id="clear_button" style="margin-left:10px;"></input></li>
-				<li><input class="btn btn-default navbar-btn" type="button" value="Settings" id="clear_button" style="margin-left:10px;"></input></li>
+				<li><input class="btn btn-default navbar-btn" type="button" value="Settings" id="clear_button" data-toggle="modal" data-target="#settingsModal" style="margin-left:10px;"></input></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#myModal" style="margin-left:10px; margin-top: 8px">
+					<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#aboutModal" style="margin-left:10px; margin-top: 8px">
 						<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
 					</button>
 				</ul>
@@ -82,31 +82,62 @@
 	</div>
 
 	<!-- About M-Study 2 Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">About M-Study 2</h4>
-      </div>
-      <div class="modal-body">
-        <p><strong>Welcome</strong><br>M-Study 2 transcribes audio to text and saves the most recent transcriptions.</p>
-		<hr>
-		<p><strong>Start Recording</strong><br>Record audio while the webapp is running. Audio is then automatically transcribed when the recording finishes.</p>
-		<p><strong>Upload</strong><br>Upload an existing audio file for processing.</p>
-		<p><strong>Clear History</strong><br>Clear all recent transcription history from the table. This is permanent and cannot be undone.</p>
-		<p><strong>Settings</strong><br>Modify options to fit personal preferences. </p>
-		<p><strong>?</strong><br>View About information. </p>
-		<hr>
-		<p><strong>History Table</strong><br>The transcription history table stores the 8 most recent items by default. This is adjustable in the settings.</p>
-		<p><strong>Item Title</strong><br>Edit a transcription item's title. Changes are automatically saved when deselected.</p>
-		<p><strong>Export Item</strong><br>Export transcription text. The default file type is adjustable in the settings.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+	<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="aboutModalLabel">About M-Study 2</h4>
+		</div>
+		<div class="modal-body">
+			<p><strong>Welcome</strong><br>M-Study 2 transcribes audio to text and saves the most recent transcriptions.</p>
+			<hr>
+			<p><strong>Start Recording</strong><br>Record audio while the webapp is running. Audio is then automatically transcribed when the recording finishes.</p>
+			<p><strong>Upload</strong><br>Upload an existing audio file for processing.</p>
+			<p><strong>Clear History</strong><br>Clear all recent transcription history from the table. This is permanent and cannot be undone.</p>
+			<p><strong>Settings</strong><br>Modify options to fit personal preferences. </p>
+			<p><strong>?</strong><br>View About information. </p>
+			<hr>
+			<p><strong>History Table</strong><br>The transcription history table stores the 8 most recent items by default. This is adjustable in the settings.</p>
+			<p><strong>Item Title</strong><br>Edit a transcription item's title. Changes are automatically saved when deselected.</p>
+			<p><strong>Export Item</strong><br>Export transcription text. The default file type is adjustable in the settings.</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+	</div>
+
+	<!--Settings Modal-->
+	<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="settingsModalLabel">Settings</h4>
+		</div>
+		<div class="modal-body">
+			<p><strong>Max Table Items</strong></p>
+			<input type="number" id="settingsTableCount" min="1" max="100" step="1" value="8"/>
+			<p style="margin-top: 16px;"><strong>Default Export Type</strong></p>
+			<div class="btn-group" data-toggle="buttons">
+				<label class="btn btn-primary active">
+					<input type="radio" name="options" id="option1" autocomplete="off" checked>Text (.txt)
+				</label>
+				<label class="btn btn-primary">
+					<input type="radio" name="options" id="option2" autocomplete="off">Word (.docx)
+				</label>
+				<label class="btn btn-primary">
+					<input type="radio" name="options" id="option3" autocomplete="off">PDF (.pdf)
+				</label>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+		</div>
+	</div>
+	</div>
 </body>
 </html>

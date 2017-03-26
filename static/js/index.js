@@ -123,6 +123,7 @@ function upload_input_change(){
     formdata = new FormData();
     formdata.append("upload", this.files[0]);
     parseAudio(formdata);
+    
 }
 
 //Parse audio with Python
@@ -261,6 +262,7 @@ function eraseTable() {
 
 // Open history alert to clear table
 function openAlert() {
+    // console.log($("#settingsTableCount").val());
     document.getElementById("deleteHistory_alert").style.visibility = "visible";
     document.getElementById("deleteHistory_alert").style.display = "block";
 }
