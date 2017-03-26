@@ -286,13 +286,26 @@ function closeLoading() {
 }
 
 function download_func(row_num) {
-  	var dl = document.createElement('a');
     var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
-    // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
-    dl.setAttribute('download', (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".txt");
-  	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
-  	dl.click();
-
+  	 
+    if ($("#option1").is(':checked')){
+        var dl = document.createElement('a');
+        // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
+        dl.setAttribute('download', (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".txt");
+        dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
+        dl.click();
+    }
+    else if ($("#option3").is(':checked')){
+        // Export as PDF using jsPDF. Splits text into array based on page width before exporting
+        // to allow for text wrapping.
+        var doc = new jsPDF();
+        var pdfText = [$("#titleInputItem_" + row_num).val(), ""];
+        var content = doc.splitTextToSize(content, 200);
+        for (var i = 0; i < content.length; i++)
+            pdfText.push(content[i]);
+        doc.text(10, 10, pdfText);
+        doc.save((document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".pdf");
+    }
 };
 
 function init() {
