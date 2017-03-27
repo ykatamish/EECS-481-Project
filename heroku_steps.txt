@@ -1,7 +1,0 @@
-make sure PyAudio is not in requirements.txt
-
-heroku create -b https://github.com/Galarius/heroku-buildpack-portaudio.git
-heroku buildpacks:add --index 2 heroku/python
-heroku buildpacks:add --index 3 https://github.com/Galarius/heroku-buildpack-pyaudio.git
-
-git push heroku master
