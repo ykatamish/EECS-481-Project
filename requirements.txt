@@ -48,7 +48,6 @@ ply==3.8
 protobuf==3.2.0
 pyasn1==0.2.2
 pyasn1-modules==0.0.8
-PyAudio==0.2.10
 pyparsing==2.1.10
 rsa==3.4.2
 six==1.10.0
