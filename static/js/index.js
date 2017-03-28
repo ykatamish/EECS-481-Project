@@ -287,14 +287,21 @@ function closeLoading() {
 
 function download_func(row_num) {
     var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
-  	 
+    var title = (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_");
+  	// Export as .txt
     if ($("#option1").is(':checked')){
         var dl = document.createElement('a');
         // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
-        dl.setAttribute('download', (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".txt");
+        dl.setAttribute('download', title + ".txt");
         dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
         dl.click();
     }
+    // Export as .docx
+    else if ($("#option2").is(':checked')){
+        var converted = htmlDocx.asBlob(content);
+        saveAs(converted, title + '.docx');
+    }
+    // Export as .pdf
     else if ($("#option3").is(':checked')){
         // Export as PDF using jsPDF. Splits text into array based on page width before exporting
         // to allow for text wrapping.
@@ -304,11 +311,21 @@ function download_func(row_num) {
         for (var i = 0; i < content.length; i++)
             pdfText.push(content[i]);
         doc.text(10, 10, pdfText);
-        doc.save((document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".pdf");
+        doc.save(title + ".pdf");
     }
 };
 
 function init() {
+    // Saves export settings
+   $("input[name=options]:radio").change(function () {
+        localStorage.setItem("exportSetting", this.id);
+    });
+
+     // Saves recent history settings
+   $("#settingsTableCount").change(function () {
+        localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+    });
+
     clicker = document.querySelector('#record_button');
     clicker.addEventListener('click', recordAudio, false);
 
@@ -328,8 +345,17 @@ function init() {
 
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){
-            // console.log(localStorage);
-            document.getElementById("recentTable").innerHTML = localStorage.tableData; 
+            $("#recentTable").html(localStorage.tableData); 
+            // Restore export setting
+            if (localStorage.getItem("exportSetting") !== null)
+                $("#"+localStorage.exportSetting + "_label").button('toggle');
+            else
+                $("#option1_label").button('toggle');
+            // Recent history table setting
+            if (localStorage.getItem("recentHistorySetting") !== null)
+                $("#settingsTableCount").val(parseInt(localStorage.recentHistorySetting));
+            else
+                $("#settingsTableCount").val(8);
         }  
     } else {
         console.log("Sorry! No Web Storage support...");
