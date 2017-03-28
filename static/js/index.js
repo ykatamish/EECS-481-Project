@@ -323,7 +323,12 @@ function init() {
 
      // Saves recent history settings
    $("#settingsTableCount").change(function () {
-        localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+        if ($("#settingsTableCount")[0].checkValidity())
+            localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+        else
+            $("#settingsTableCount").val(8);
+
+        
     });
 
     clicker = document.querySelector('#record_button');
