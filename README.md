@@ -58,3 +58,13 @@ A web app project to transcribe recordings using Google speech to text API. Sinc
 **Installing Google Cloud API on MAC**
 
 1 - Follow readme.txt instructions in google_api_interface folder
+
+**HEROKU setup**
+
+make sure PyAudio is not in requirements.txt
+
+1 - heroku create -b https://github.com/Galarius/heroku-buildpack-portaudio.git
+2 - heroku buildpacks:add --index 2 heroku/python
+3 - heroku buildpacks:add --index 3 https://github.com/Galarius/heroku-buildpack-pyaudio.git
+
+git push heroku master

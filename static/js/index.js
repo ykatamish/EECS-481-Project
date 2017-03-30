@@ -92,7 +92,7 @@ function handleWAV(blob) {
     
     newCell = newRow.insertCell(-1);
     var toggler;
-    for (var i = 0, l = 8; i < l; i++) {
+    for (var i = 0, l = parseInt(localStorage.recentHistorySetting); i < l; i++) {
         toggler = document.createElement('input');
         $(toggler).attr('type', 'checkbox');
         newCell.appendChild(toggler);
@@ -123,6 +123,7 @@ function upload_input_change(){
     formdata = new FormData();
     formdata.append("upload", this.files[0]);
     parseAudio(formdata);
+    
 }
 
 //Parse audio with Python
@@ -227,7 +228,7 @@ function insert_row(text_input) {
 	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
 
     // Max table size set at 8. (TODO: Fix ids. Will indefinitely increase...)
-    if (table.rows.length - 1 > 8){
+    if (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){
         table.deleteRow(table.rows.length - 1);
     }
 
@@ -261,6 +262,7 @@ function eraseTable() {
 
 // Open history alert to clear table
 function openAlert() {
+    // console.log($("#settingsTableCount").val());
     document.getElementById("deleteHistory_alert").style.visibility = "visible";
     document.getElementById("deleteHistory_alert").style.display = "block";
 }
@@ -269,6 +271,20 @@ function openAlert() {
 function closeAlert() {
     document.getElementById("deleteHistory_alert").style.visibility = "hidden";
     document.getElementById("deleteHistory_alert").style.display = "none";
+}
+
+
+// Open modal history alert to clear table
+function openModalWarning() {
+    // console.log($("#settingsTableCount").val());
+    document.getElementById("reduceHistory_alert").style.visibility = "visible";
+    document.getElementById("reduceHistory_alert").style.display = "block";
+}
+
+// Open modal history alert to clear table
+function closeModalWarning() {
+    document.getElementById("reduceHistory_alert").style.visibility = "hidden";
+    document.getElementById("reduceHistory_alert").style.display = "none";
 }
 
 // Open alert to clear table
@@ -284,16 +300,65 @@ function closeLoading() {
 }
 
 function download_func(row_num) {
-  	var dl = document.createElement('a');
     var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
-    // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
-    dl.setAttribute('download', (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_") + ".txt");
-  	dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
-  	dl.click();
-
+    var title = (document.getElementById("titleInputItem_" + row_num).value).replace(/ /g,"_");
+  	// Export as .txt
+    if ($("#option1").is(':checked')){
+        var dl = document.createElement('a');
+        // File of title is Cell Title with underscores instead of spaces. TODO: Regex to remove all illegal characters
+        dl.setAttribute('download', title + ".txt");
+        dl.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(content));
+        dl.click();
+    }
+    // Export as .docx
+    else if ($("#option2").is(':checked')){
+        var converted = htmlDocx.asBlob(content);
+        saveAs(converted, title + '.docx');
+    }
+    // Export as .pdf
+    else if ($("#option3").is(':checked')){
+        // Export as PDF using jsPDF. Splits text into array based on page width before exporting
+        // to allow for text wrapping.
+        var doc = new jsPDF();
+        var pdfText = [$("#titleInputItem_" + row_num).val(), ""];
+        var content = doc.splitTextToSize(content, 200);
+        for (var i = 0; i < content.length; i++)
+            pdfText.push(content[i]);
+        doc.text(10, 10, pdfText);
+        doc.save(title + ".pdf");
+    }
 };
 
+function changeTableSize(){
+    localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+    closeModalWarning();
+    var table = document.getElementById("recentTable");
+    while (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){
+        table.deleteRow(table.rows.length - 1);
+    }
+    localStorage.setItem("tableData", table.innerHTML);
+}
+
 function init() {
+    // Saves export settings
+   $("input[name=options]:radio").change(function () {
+        localStorage.setItem("exportSetting", this.id);
+    });
+
+     // Saves recent history settings
+   $("#settingsTableCount").change(function () {
+        if ($("#settingsTableCount")[0].checkValidity()){
+            if (parseInt(localStorage.recentHistorySetting) > $("#settingsTableCount").val())
+                openModalWarning()
+            else
+                localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+        }
+        else{
+            $("#settingsTableCount").val(8);
+            localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+        }    
+    });
+
     clicker = document.querySelector('#record_button');
     clicker.addEventListener('click', recordAudio, false);
 
@@ -311,10 +376,29 @@ function init() {
     endAlert2 = document.querySelector('#x_cancel');
     endAlert2.addEventListener('click', closeAlert, false);
 
+    DECREASETABLE = document.querySelector('#proceedTable');
+    DECREASETABLE.addEventListener('click', changeTableSize, false);
+    endAlert1 = document.querySelector('#table_cancel');
+    endAlert1.addEventListener('click', closeModalWarning, false);
+    endAlert2 = document.querySelector('#x_cancel_modal');
+    endAlert2.addEventListener('click', closeModalWarning, false);
+
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){
-            // console.log(localStorage);
-            document.getElementById("recentTable").innerHTML = localStorage.tableData; 
+            $("#recentTable").html(localStorage.tableData); 
+            // Restore export setting
+            if (localStorage.getItem("exportSetting") !== null)
+                $("#"+localStorage.exportSetting + "_label").button('toggle');
+            else
+                $("#option1_label").button('toggle');
+            // Recent history table setting
+            if (localStorage.getItem("recentHistorySetting") !== null)
+                $("#settingsTableCount").val(parseInt(localStorage.recentHistorySetting));
+            else{
+                $("#settingsTableCount").val(8);
+                localStorage.setItem("recentHistorySetting", 8);
+            }
+                
         }  
     } else {
         console.log("Sorry! No Web Storage support...");
