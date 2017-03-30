@@ -122,4 +122,6 @@ def uploadParse_route():
             for result in operation.results:
               if result != None:
                 full_transcript = full_transcript + " " + result.transcript
+				
+		return(full_transcript)
 
