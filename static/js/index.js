@@ -92,7 +92,7 @@ function handleWAV(blob) {
     
     newCell = newRow.insertCell(-1);
     var toggler;
-    for (var i = 0, l = 8; i < l; i++) {
+    for (var i = 0, l = parseInt(localStorage.recentHistorySetting); i < l; i++) {
         toggler = document.createElement('input');
         $(toggler).attr('type', 'checkbox');
         newCell.appendChild(toggler);
@@ -228,7 +228,7 @@ function insert_row(text_input) {
 	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
 
     // Max table size set at 8. (TODO: Fix ids. Will indefinitely increase...)
-    if (table.rows.length - 1 > 8){
+    if (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){
         table.deleteRow(table.rows.length - 1);
     }
 
@@ -273,6 +273,20 @@ function closeAlert() {
     document.getElementById("deleteHistory_alert").style.display = "none";
 }
 
+
+// Open modal history alert to clear table
+function openModalWarning() {
+    // console.log($("#settingsTableCount").val());
+    document.getElementById("reduceHistory_alert").style.visibility = "visible";
+    document.getElementById("reduceHistory_alert").style.display = "block";
+}
+
+// Open modal history alert to clear table
+function closeModalWarning() {
+    document.getElementById("reduceHistory_alert").style.visibility = "hidden";
+    document.getElementById("reduceHistory_alert").style.display = "none";
+}
+
 // Open alert to clear table
 function openLoading() {
     document.getElementById("ajaxloading_alert").style.visibility = "visible";
@@ -315,6 +329,16 @@ function download_func(row_num) {
     }
 };
 
+function changeTableSize(){
+    localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+    closeModalWarning();
+    var table = document.getElementById("recentTable");
+    while (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){
+        table.deleteRow(table.rows.length - 1);
+    }
+    localStorage.setItem("tableData", table.innerHTML);
+}
+
 function init() {
     // Saves export settings
    $("input[name=options]:radio").change(function () {
@@ -323,12 +347,16 @@ function init() {
 
      // Saves recent history settings
    $("#settingsTableCount").change(function () {
-        if ($("#settingsTableCount")[0].checkValidity())
-            localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
-        else
+        if ($("#settingsTableCount")[0].checkValidity()){
+            if (parseInt(localStorage.recentHistorySetting) > $("#settingsTableCount").val())
+                openModalWarning()
+            else
+                localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+        }
+        else{
             $("#settingsTableCount").val(8);
-
-        
+            localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
+        }    
     });
 
     clicker = document.querySelector('#record_button');
@@ -348,6 +376,13 @@ function init() {
     endAlert2 = document.querySelector('#x_cancel');
     endAlert2.addEventListener('click', closeAlert, false);
 
+    DECREASETABLE = document.querySelector('#proceedTable');
+    DECREASETABLE.addEventListener('click', changeTableSize, false);
+    endAlert1 = document.querySelector('#table_cancel');
+    endAlert1.addEventListener('click', closeModalWarning, false);
+    endAlert2 = document.querySelector('#x_cancel_modal');
+    endAlert2.addEventListener('click', closeModalWarning, false);
+
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){
             $("#recentTable").html(localStorage.tableData); 
@@ -359,8 +394,11 @@ function init() {
             // Recent history table setting
             if (localStorage.getItem("recentHistorySetting") !== null)
                 $("#settingsTableCount").val(parseInt(localStorage.recentHistorySetting));
-            else
+            else{
                 $("#settingsTableCount").val(8);
+                localStorage.setItem("recentHistorySetting", 8);
+            }
+                
         }  
     } else {
         console.log("Sorry! No Web Storage support...");
