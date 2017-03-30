@@ -56,7 +56,7 @@ def uploadParse_route():
         full_transcript = ""
         counter = 0
         partition_start = 0
-        segment_length = 7
+        segment_length = 5
         partition_length =  segment_length * 1000 # length partition
 
         while not done:
