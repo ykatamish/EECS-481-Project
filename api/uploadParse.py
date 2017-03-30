@@ -42,7 +42,7 @@ def uploadParse_route():
         output_file_name = "test.raw"
 
         ## get the input file:
-        input_file_name = "long.mp3"
+        input_file_name = "output.wav"
         dir_path = os.getcwd() + "/"
         mp3_flag = True
         full_transcript = ""
