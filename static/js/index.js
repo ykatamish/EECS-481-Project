@@ -123,7 +123,7 @@ function upload_input_change(){
     formdata = new FormData();
     formdata.append("upload", this.files[0]);
     parseAudio(formdata);
-    
+    $(this).val("");
 }
 
 //Parse audio with Python
