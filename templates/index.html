@@ -58,12 +58,18 @@
 
 		<!--Template table for recent file transcriptions-->
 		<section>
-			<div id="deleteHistory_alert" class="alert alert-danger fade in" role="alert" style="visibility: hidden; display: none;" >
+			<div id="deleteHistory_alert" class="alert alert-danger fade in" role="alert" style="visibility: hidden; display: none;">
 				<button type="button" class="close" aria-label="Close" id="x_cancel"><span aria-hidden="true">&times;</span></button>
 				<p><strong>Warning.</strong> Are you sure you want to clear all recent history?</p><br>
 				<button id="eraseTable" class="btn btn-danger">Clear All</button>
-				<button id="historyCancel_btn" class="btn btn-default">Cancel</button>
+				<button id="historyCancel_btn" class="btn btn-default pull-right">Cancel</button>
 			</div>
+			<!--<div id="deleteTR_alert" class="alert alert-danger fade in" role="alert" style="visibility: hidden; display: none;">
+				<button type="button" class="close" aria-label="Close" id="x_tr_cancel"><span aria-hidden="true">&times;</span></button>
+				<p id="deleteTR_textAlert"><strong>Warning.</strong> Are you sure you want to delete the row?</p><br>
+				<button id="eraseTR" class="btn btn-danger">Delete</button>
+				<button id="TRCancel_btn" class="btn btn-default pull-right">Cancel</button>
+			</div>-->
 			<div id="ajaxloading_alert" class="alert alert-info fade in" role="alert" style="visibility:hidden; display: none; text-align: center;">
 				<p id="recordingTimer_p" style="visibility: hidden; display: none;"><strong>Recording 10 seconds...</strong></p>
 				<p id="loadingText_p"><strong>Loading Request...</strong></p><br>
@@ -71,10 +77,11 @@
 			</div>
 			<table id="recentTable" class="table table-hover table-striped">
 				<thead>
-					<tr>
-						<th>Date</th>
-						<th>Title</th>
-						<th>Export</th>
+					<tr style="font-size: 24px;">
+						<th class="text-center">Date</th>
+						<th class="text-center">Title</th>
+						<th class="text-center">Export</th>
+						<th class="text-center">Remove</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -89,9 +96,9 @@
 		<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title" id="aboutModalLabel">About M-Study 2</h4>
+			<h4 class="modal-title" id="aboutModalLabel" style="font-size: 24px;">About M-Study 2</h4>
 		</div>
-		<div class="modal-body">
+		<div class="modal-body" style="font-size: 20px;">
 			<p><strong>Welcome</strong><br>M-Study 2 transcribes audio to text and saves the most recent transcriptions.</p>
 			<hr>
 			<p><strong>Start Recording</strong><br>Record audio while the webapp is running. Audio is then automatically transcribed when the recording finishes.</p>
@@ -117,18 +124,18 @@
 		<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title" id="settingsModalLabel">Settings</h4>
+			<h4 style="font-size: 24px;" class="modal-title" id="settingsModalLabel">Settings</h4>
 		</div>
 		<div class="modal-body">
 			<div id="reduceHistory_alert" class="alert alert-danger fade in" role="alert" style="visibility: hidden; display: none;" >
 				<button type="button" class="close" aria-label="Close" id="x_cancel_modal"><span aria-hidden="true">&times;</span></button>
 				<p><strong>Warning.</strong> You have chosen a shorter retention. This may delete data. Are you sure you want to proceed?</p><br>
 				<button id="proceedTable" class="btn btn-danger">Yes</button>
-				<button id="table_cancel" class="btn btn-default">Cancel</button>
+				<button id="table_cancel" class="btn btn-default pull-right">Cancel</button>
 			</div>
-			<p><strong>Max Table Items [1,100]</strong></p>
-			<input type="number" id="settingsTableCount" min="1" max="100" step="1"/>
-			<p style="margin-top: 16px;"><strong>Default Export Type</strong></p>
+			<p style="font-size: 20px;"><strong>Max Table Items [1,100]</strong></p>
+			<input type="number" id="settingsTableCount" min="1" max="100" step="1" style="font-size: 20px;"/>
+			<p style="margin-top: 16px; font-size: 20px;"><strong>Default Export Type</strong></p>
 			<div class="btn-group" data-toggle="buttons" id="exportSetting_group">
 				<label class="btn btn-primary" id="option1_label">
 					<input type="radio" name="options" id="option1" autocomplete="off" checked>Text (.txt)
