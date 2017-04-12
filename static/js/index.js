@@ -206,11 +206,12 @@ function insert_row(text_input) {
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
-    // Hidden cell containing transcript text
     var cell4 = row.insertCell(3);
-    cell4.className = "hidden";
-    cell4.innerHTML = "This is Lecture " + rowID + ": " + text_input;
-    cell4.id = "transcriptCellItem_" + rowID;
+    // Hidden cell containing transcript text
+    var cell5 = row.insertCell(4);
+    cell5.className = "hidden";
+    cell5.innerHTML = text_input;
+    cell5.id = "transcriptCellItem_" + rowID;
 
 
 	// Add some text to the new cells:
@@ -219,15 +220,17 @@ function insert_row(text_input) {
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
 	cell1.innerHTML = mm + '/' + dd + '/' + yyyy;
-	cell2.innerHTML = '<input type="text" id="titleInputItem_' + rowID + '" value="EECS 481 L' + rowID + '"onfocusout="update_localStorage('+rowID+')"/>'
+    cell1.style = 'font-size: 20px; font-weight: bold'
+	cell2.innerHTML = '<input type="text" id="titleInputItem_' + rowID + '" value="EECS 481 L' + rowID + '"onfocusout="update_localStorage('+rowID+')" style="font-size: 20px; font-weight: bold"/>'
     // "EECS 481 L" + rowID;
     cell2.id = "titleCellItem_" + rowID;
     cell2.className = "cellTitle";
     // Cell btn and onclick ID to pass into download_func(row_num)
     
 	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
+    cell4.innerHTML = '<div class="text-center"><button type="button" class="btn btn-danger" aria-label="Left Align" onclick="delete_row(' + rowID + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div> ';
 
-    // Max table size set at 8. (TODO: Fix ids. Will indefinitely increase...)
+    // Max table size set at LocalSettings. (TODO: Fix ids. Will indefinitely increase...)
     if (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){
         table.deleteRow(table.rows.length - 1);
     }
@@ -249,6 +252,15 @@ function update_localStorage(item_id) {
     localStorage.setItem("tableData", table.innerHTML);
 }
 
+// Delete a specific table row. Warns user and updates local storage
+function delete_row(item_id){
+    var deleteIndex = $("tr").index($("#rowItem_" + item_id));
+    var table = document.getElementById("recentTable");
+    table.deleteRow(deleteIndex);
+
+     // Push to local storage
+    localStorage.setItem("tableData", table.innerHTML);
+}
 
 // Erase table contents
 function eraseTable() {
@@ -298,6 +310,19 @@ function closeLoading() {
     document.getElementById("ajaxloading_alert").style.visibility = "hidden";
     document.getElementById("ajaxloading_alert").style.display = "none";
 }
+
+// // Open alert to clear table
+// function openTRWarning(rowID) {
+//     document.getElementById("deleteTR_alert").style.visibility = "visible";
+//     document.getElementById("deleteTR_alert").style.display = "block";
+//     $("#eraseTR").val(rowID);
+// }
+
+// // Open alert to clear table
+// function closeTRWarning() {
+//     document.getElementById("deleteTR_alert").style.visibility = "hidden";
+//     document.getElementById("deleteTR_alert").style.display = "none";
+// }
 
 function download_func(row_num) {
     var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
@@ -367,6 +392,13 @@ function init() {
 
     ERASETABLE = document.querySelector('#eraseTable');
     ERASETABLE.addEventListener('click', eraseTable, false);
+
+    // deleteTR = document.querySelector('#eraseTR');
+    // deleteTR.addEventListener('click', delete_row($(this).val()), false);
+    // endTRAlert1 = document.querySelector('#x_tr_cancel');
+    // endTRAlert1.addEventListener('click', closeTRWarning, false);
+    // endTRAlert2 = document.querySelector('#TRCancel_btn');
+    // endTRAlert2.addEventListener('click', closeTRWarning, false);
 
     startAlert = document.querySelector('#clear_button');
     startAlert.addEventListener('click', openAlert, false);
