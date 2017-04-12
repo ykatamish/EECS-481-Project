@@ -228,7 +228,7 @@ function insert_row(text_input) {
     // Cell btn and onclick ID to pass into download_func(row_num)
     
 	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
-    cell4.innerHTML = '<div class="text-center"><button type="button" class="btn btn-danger" aria-label="Left Align" onclick="delete_row(' + rowID + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div> ';
+    cell4.innerHTML = '<div class="text-center"><button type="button" class="btn btn-danger" aria-label="Left Align" onclick="openTRWarning(' + rowID + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div> ';
 
     // Max table size set at LocalSettings. (TODO: Fix ids. Will indefinitely increase...)
     if (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){
@@ -254,12 +254,14 @@ function update_localStorage(item_id) {
 
 // Delete a specific table row. Warns user and updates local storage
 function delete_row(item_id){
-    var deleteIndex = $("tr").index($("#rowItem_" + item_id));
+    var deleteIndex = $("tr").index($("#rowItem_" + $(this).val()));
     var table = document.getElementById("recentTable");
     table.deleteRow(deleteIndex);
 
      // Push to local storage
     localStorage.setItem("tableData", table.innerHTML);
+
+    closeTRWarning();
 }
 
 // Erase table contents
@@ -311,18 +313,18 @@ function closeLoading() {
     document.getElementById("ajaxloading_alert").style.display = "none";
 }
 
-// // Open alert to clear table
-// function openTRWarning(rowID) {
-//     document.getElementById("deleteTR_alert").style.visibility = "visible";
-//     document.getElementById("deleteTR_alert").style.display = "block";
-//     $("#eraseTR").val(rowID);
-// }
+// Open alert to clear table
+function openTRWarning(rowID) {
+    document.getElementById("deleteTR_alert").style.visibility = "visible";
+    document.getElementById("deleteTR_alert").style.display = "block";
+    $("#eraseTR").val(rowID);
+}
 
-// // Open alert to clear table
-// function closeTRWarning() {
-//     document.getElementById("deleteTR_alert").style.visibility = "hidden";
-//     document.getElementById("deleteTR_alert").style.display = "none";
-// }
+// Open alert to clear table
+function closeTRWarning() {
+    document.getElementById("deleteTR_alert").style.visibility = "hidden";
+    document.getElementById("deleteTR_alert").style.display = "none";
+}
 
 function download_func(row_num) {
     var content = document.getElementById("transcriptCellItem_" + row_num).innerHTML;
@@ -393,12 +395,12 @@ function init() {
     ERASETABLE = document.querySelector('#eraseTable');
     ERASETABLE.addEventListener('click', eraseTable, false);
 
-    // deleteTR = document.querySelector('#eraseTR');
-    // deleteTR.addEventListener('click', delete_row($(this).val()), false);
-    // endTRAlert1 = document.querySelector('#x_tr_cancel');
-    // endTRAlert1.addEventListener('click', closeTRWarning, false);
-    // endTRAlert2 = document.querySelector('#TRCancel_btn');
-    // endTRAlert2.addEventListener('click', closeTRWarning, false);
+    deleteTR = document.querySelector('#eraseTR');
+    deleteTR.addEventListener('click', delete_row, false);
+    endTRAlert1 = document.querySelector('#x_tr_cancel');
+    endTRAlert1.addEventListener('click', closeTRWarning, false);
+    endTRAlert2 = document.querySelector('#TRCancel_btn');
+    endTRAlert2.addEventListener('click', closeTRWarning, false);
 
     startAlert = document.querySelector('#clear_button');
     startAlert.addEventListener('click', openAlert, false);
