@@ -228,7 +228,7 @@ function insert_row(text_input) {
     // Cell btn and onclick ID to pass into download_func(row_num)
     
 	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
-    cell4.innerHTML = '<div class="text-center"><button type="button" class="btn btn-danger" aria-label="Left Align" onclick="openTRWarning(' + rowID + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div> ';
+    cell4.innerHTML = '<div class="text-center"><button type="button" class="btn btn-warning" aria-label="Left Align" onclick="openTRWarning(' + rowID + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div> ';
 
     // Max table size set at LocalSettings. (TODO: Fix ids. Will indefinitely increase...)
     if (table.rows.length - 1 > parseInt(localStorage.recentHistorySetting)){

@@ -52,6 +52,15 @@ tr, th {
     border-color: #000000 !important;
 }
 
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:visited,
+.btn-warning:focus,
+.btn-warning:active {
+    background-color: #B3000D !important;
+    border-color: #B3000D !important;
+}
+
 .btn {
     font-size: 16px;
     font-weight: bold;
