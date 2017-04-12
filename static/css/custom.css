@@ -34,22 +34,13 @@ tr, th {
     border-color: #2E4272 !important;
 }
 
-.btn-primary:active {
-    background-color: #061539 !important;
-    border-color: #061539 !important;
-}
-
-.btn-primary,
-.btn-primary:hover,
-.btn-primary:visited,
-.btn-primary:focus {
-    background-color: #2E4272 !important;
-    border-color: #2E4272 !important;
-}
-
-.btn-primary:active {
-    background-color: #061539 !important;
-    border-color: #061539 !important;
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:focus,
+.btn-group:active,
+.btn-group:focus {
+    background-color: #266100 !important;
+    border-color: #266100 !important;
 }
 
 .btn-danger,
