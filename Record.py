@@ -9,11 +9,13 @@ RATE = 44100
 RECORD_SECONDS = 10
 WAVE_OUTPUT_FILENAME = "output.wav"
 
+record = True
+
 
 def wait():
+  global record
   raw_input("\nPress Enter to continue.")
   record = False
-
 
 def main():
   p = pyaudio.PyAudio()
@@ -28,14 +30,14 @@ def main():
 
   frames = []
   
-  record = True
   
   t = threading.Thread(target=wait)
   t.start()
   
+
   while(record):
-      data = stream.read(CHUNK)
-      frames.append(data)
+    data = stream.read(CHUNK)
+    frames.append(data)
 
   print("* done recording")
 
@@ -52,3 +54,4 @@ def main():
   
 if __name__ == "__main__":
     main()
+
