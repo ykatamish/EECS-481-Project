@@ -356,6 +356,9 @@ function download_func(row_num) {
     }
 };
 
+
+
+// Modifies maximum allowed rows in primary table
 function changeTableSize(){
     localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
     closeModalWarning();
@@ -365,6 +368,45 @@ function changeTableSize(){
     }
     localStorage.setItem("tableData", table.innerHTML);
 }
+
+// Hashing function
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+
+// Sets a cookie
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+// Get cookie by string
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 
 function init() {
     // Saves export settings
@@ -437,5 +479,15 @@ function init() {
     } else {
         console.log("Sorry! No Web Storage support...");
     }
+
+    var aboutModal = (window.location.href.hashCode()).toString();
+    if (getCookie(aboutModal) == ""){
+        $('#aboutModal').modal('toggle');
+        setCookie(aboutModal, "true", 1000)
+    }
+    else
+        console.log(getCookie(aboutModal));
+    console.log(window.location.href);
+    console.log(window.location.href.hashCode());
 }
 document.addEventListener('DOMContentLoaded', init);
