@@ -485,9 +485,5 @@ function init() {
         $('#aboutModal').modal('toggle');
         setCookie(aboutModal, "true", 1000)
     }
-    else
-        console.log(getCookie(aboutModal));
-    console.log(window.location.href);
-    console.log(window.location.href.hashCode());
 }
 document.addEventListener('DOMContentLoaded', init);
