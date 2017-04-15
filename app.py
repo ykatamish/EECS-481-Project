@@ -12,6 +12,7 @@ app.register_blueprint(controllers.main)
 
 app.register_blueprint(api.uploadParse)
 app.register_blueprint(api.audioRecord)
+app.register_blueprint(api.onlineRecord)
 
 print controllers
 
