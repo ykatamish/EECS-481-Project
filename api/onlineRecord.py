@@ -17,3 +17,4 @@ onlineRecord = Blueprint('onlineRecord', __name__, template_folder='templates')
 @onlineRecord.route("/api/v1/onlineRecord", methods=['GET'])
 
 def onlineRecord_route():
+    print "hello"
