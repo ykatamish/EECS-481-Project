@@ -16,23 +16,23 @@ function showDialog(){
         elem.value = "Start Recording";
         recorder && recorder.stop();
         console.log('Stopped recording.');
-        
+
         // create WAV download link using audio data blob
         createDownloadLink();
-        
+
         recorder.clear();
     }
 }
 function startUserMedia(stream) {
     var input = audio_context.createMediaStreamSource(stream);
     // console.log('Media stream created.');
-    
+
     volume = audio_context.createGain();
     volume.gain.value = volumeLevel;
     input.connect(volume);
     volume.connect(audio_context.destination);
     // console.log('Input connected to audio context destination.');
-    
+
     recorder = new Recorder(input);
     // console.log('Recorder initialised.');
 }
@@ -47,28 +47,28 @@ function handleWAV(blob) {
     if (currentEditedSoundIndex !== -1) {
         $('#recordingslist tr:nth-child(' + (currentEditedSoundIndex + 1) + ')').remove();
     }
-    
+
     var url = URL.createObjectURL(blob);
     var newRow   = tableRef.insertRow(currentEditedSoundIndex);
     newRow.className = 'soundBite';
     var audioElement = document.createElement('audio');
     var downloadAnchor = document.createElement('a');
     var editButton = document.createElement('button');
-    
+
     audioElement.controls = true;
     audioElement.src = url;
-    
+
     downloadAnchor.href = url;
     downloadAnchor.download = new Date().toISOString() + '.wav';
     downloadAnchor.innerHTML = 'Download';
     downloadAnchor.className = 'btn btn-primary';
-    
+
     editButton.onclick = function(e) {
         $('.recorder.container').addClass('hide');
         $('.editor.container').removeClass('invisible');
-        
+
         currentEditedSoundIndex = $(e.target).closest('tr').index();
-        
+
         var f = new FileReader();
         f.onload = function(e) {
             audio_context.decodeAudioData(e.target.result, function(buffer) {
@@ -82,14 +82,14 @@ function handleWAV(blob) {
     };
     editButton.innerHTML = 'Edit';
     editButton.className = 'btn btn-primary';
-    
+
     var newCell = newRow.insertCell(-1);
     newCell.appendChild(audioElement);
     newCell = newRow.insertCell(-1);
     newCell.appendChild(downloadAnchor);
     newCell = newRow.insertCell(-1);
     newCell.appendChild(editButton);
-    
+
     newCell = newRow.insertCell(-1);
     var toggler;
     for (var i = 0, l = parseInt(localStorage.recentHistorySetting); i < l; i++) {
@@ -105,14 +105,14 @@ window.onload = function init() {
         window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         window.URL = window.URL || window.webkitURL || window.mozURL;
-        
+
         audio_context = new AudioContext();
         // console.log('Audio context set up.');
         // console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
     } catch (e) {
         console.warn('No web audio support in this browser!');
     }
-    
+
     navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
                            console.warn('No live audio input: ' + e);
                            });
@@ -153,27 +153,25 @@ function parseAudio(audioFile) {
 
 //Parse audio with Python
 function recordAudio() {
-    openLoading();
 
-    document.getElementById("recordingTimer_p").style.visibility = "visible";
-    document.getElementById("recordingTimer_p").style.display = "block";
+    var pythonSTART_API = window.location.href + "api/v1/audioRecord";
+    var pythonEND_API = window.location.href + "api/v1/onlineRecord";
 
-    document.getElementById("loadingText_p").style.visibility = "hidden";
-    document.getElementById("loadingText_p").style.display = "none";
+    // Start a recording
+    if ($("#record_button").val() == "Start Recording"){
+        $("#record_button").val("Stop Recording");
+        openLoading();
 
-    setInterval(function(){
-        document.getElementById("recordingTimer_p").style.visibility = "hidden";
-        document.getElementById("recordingTimer_p").style.display = "none";
+        document.getElementById("recordingTimer_p").style.visibility = "visible";
+        document.getElementById("recordingTimer_p").style.display = "block";
 
-        document.getElementById("loadingText_p").style.visibility = "visible";
-        document.getElementById("loadingText_p").style.display = "block";
-    }, 10000);
+        document.getElementById("loadingText_p").style.visibility = "hidden";
+        document.getElementById("loadingText_p").style.display = "none";
 
-    var pythonAPI = window.location.href + "api/v1/audioRecord";
-    $.ajax({
+        $.ajax({
         type: "GET",
         contentType: "application/json; charset=UTF-8",
-        url: pythonAPI,
+        url: pythonSTART_API,
         success: function(response) {
             console.log("AJAX Success.")
             console.log(response);
@@ -186,6 +184,36 @@ function recordAudio() {
             closeLoading();
         }
     });
+    }
+    // End a recording
+    else{
+        $("#record_button").val("Start Recording");
+
+        document.getElementById("recordingTimer_p").style.visibility = "hidden";
+        document.getElementById("recordingTimer_p").style.display = "none";
+
+        document.getElementById("loadingText_p").style.visibility = "visible";
+        document.getElementById("loadingText_p").style.display = "block";
+
+         $.ajax({
+        type: "POST",
+        url: pythonEND_API,
+        data: "STOP",
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log("AJAX Success.")
+            console.log(response);
+            // insert_row(response);
+            closeLoading();
+        },
+        error: function(error){
+            console.log("AJAX Error.");
+            console.log(error);
+            closeLoading();
+        }
+    });
+    }
 }
 
 function insert_row(text_input) {
@@ -226,7 +254,7 @@ function insert_row(text_input) {
     cell2.id = "titleCellItem_" + rowID;
     cell2.className = "cellTitle";
     // Cell btn and onclick ID to pass into download_func(row_num)
-    
+
 	cell3.innerHTML = '<button type="button" class="btn btn-block btn-primary" aria-label="Left Align" onclick="download_func(' + rowID + ')"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
     cell4.innerHTML = '<div class="text-center"><button type="button" class="btn btn-warning" aria-label="Left Align" onclick="openTRWarning(' + rowID + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div> ';
 
@@ -235,7 +263,7 @@ function insert_row(text_input) {
         table.deleteRow(table.rows.length - 1);
     }
 
-    // Localstorage. Store  
+    // Localstorage. Store
     localStorage.setItem("tableData", table.innerHTML);
 }
 
@@ -246,7 +274,7 @@ function update_localStorage(item_id) {
     document.getElementById("titleCellItem_"+item_id).value
     var cell2 = document.getElementById("titleCellItem_"+item_id)
     cell2.innerHTML = '<input type="text" id="titleInputItem_' + item_id + '" value="' + document.getElementById("titleInputItem_"+item_id).value + '"onfocusout="update_localStorage(' + item_id + ')"/>'
-    
+
     // Push to local storage
     var table = document.getElementById("recentTable");
     localStorage.setItem("tableData", table.innerHTML);
@@ -425,7 +453,7 @@ function init() {
         else{
             $("#settingsTableCount").val(8);
             localStorage.setItem("recentHistorySetting", $("#settingsTableCount").val());
-        }    
+        }
     });
 
     clicker = document.querySelector('#record_button');
@@ -461,7 +489,7 @@ function init() {
 
     if (typeof(Storage) !== "undefined") {
         if (localStorage.length > 0){
-            $("#recentTable").html(localStorage.tableData); 
+            $("#recentTable").html(localStorage.tableData);
             // Restore export setting
             if (localStorage.getItem("exportSetting") !== null)
                 $("#"+localStorage.exportSetting + "_label").button('toggle');
@@ -474,8 +502,8 @@ function init() {
                 $("#settingsTableCount").val(8);
                 localStorage.setItem("recentHistorySetting", 8);
             }
-                
-        }  
+
+        }
     } else {
         console.log("Sorry! No Web Storage support...");
     }
