@@ -195,24 +195,26 @@ function recordAudio() {
         document.getElementById("loadingText_p").style.visibility = "visible";
         document.getElementById("loadingText_p").style.display = "block";
 
-         $.ajax({
-        type: "POST",
-        url: pythonEND_API,
-        data: "STOP",
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            console.log("AJAX Success.")
-            console.log(response);
-            // insert_row(response);
-            closeLoading();
-        },
-        error: function(error){
-            console.log("AJAX Error.");
-            console.log(error);
-            closeLoading();
-        }
-    });
+
+    //     $.ajax({
+    //     type: "POST",
+    //     contentType: "application/json; charset=UTF-8",
+    //     url: pythonEND_API,
+    //     data: window.location.href,
+    //     processData: false,
+    //     contentType: false,
+    //     success: function(response) {
+    //         console.log("AJAX Success.")
+    //         console.log(response);
+    //         insert_row(response);
+    //         closeLoading();
+    //     },
+    //     error: function(error){
+    //         console.log("AJAX Error.");
+    //         console.log(error);
+    //         closeLoading();
+    //     }
+    // });
     }
 }
 
