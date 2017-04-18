@@ -3,6 +3,7 @@
 import re #
 import hashlib #
 import uuid #
+import urllib2
 from flask import *
 import pyaudio
 import wave
@@ -10,8 +11,12 @@ import time
 import os
 from google.cloud import speech
 from google.cloud import storage
+import threading
+import api
 
 audioRecord = Blueprint('audioRecord', __name__, template_folder='templates')
+
+
 
 @audioRecord.route("/api/v1/audioRecord", methods=['GET'])
 def audioRecord_route():
@@ -36,9 +41,26 @@ def audioRecord_route():
 
 		frames = []
 
-		for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-		    data = stream.read(CHUNK)
-		    frames.append(data)
+		# t = threading.Thread(target = api.onlineRecord.onlineRecord_route())
+		# t.start()
+		# t.join()
+
+		currentURL = "http://mstudy.eecs.umich.edu/"
+		# html_content = urllib2.urlopen(currentURL).read()
+		# matches = re.findall('regex of string to find', html_content);
+		record = True
+		while(record):
+			data = stream.read(CHUNK)
+			frames.append(data)
+
+			html_content = urllib2.urlopen(currentURL).read()
+			matches = re.findall('Start Recording', html_content);
+
+			# print matches
+			
+			if (len(matches) != 0):
+				# print 'Received Stop'
+				record = False
 
 		print("* done recording")
 
@@ -52,7 +74,6 @@ def audioRecord_route():
 		wf.setframerate(RATE)
 		wf.writeframes(b''.join(frames))
 		wf.close()
-
 		dir_path = os.getcwd() + "/"
 
 
@@ -75,7 +96,7 @@ def audioRecord_route():
 		blob_to_upload = storage.Blob(output_file_name, bucket)
 
 		with open(dir_path + output_file_name, 'rb') as my_file:
-		    blob_to_upload.upload_from_file(my_file)
+			blob_to_upload.upload_from_file(my_file)
 
 
 
@@ -87,23 +108,26 @@ def audioRecord_route():
 		retry_count = 100
 
 		while retry_count > 0 and not operation.complete:
-		    retry_count -= 1
-		    time.sleep(10)
-		    operation.poll()  # API call
+			retry_count -= 1
+			time.sleep(10)
+			operation.poll()# API call
 
 		full_transcript = ""
 
 		for result in operation.results:
-		    full_transcript = full_transcript + result.transcript
+			full_transcript = full_transcript + result.transcript
 
 		print(full_transcript)
 
+		return full_transcript
 
-		"""
-		for result in operation.results:
-		    print '=' * 20
-		    print result.transcript
-		    print result.confidence 
-		"""
 
-   		return full_transcript
+
+def loop(stream, frames, CHUNK):
+	global record
+	record = True
+	while(record):
+		data = stream.read(CHUNK)
+		frames.append(data)
+		print record
+	return
