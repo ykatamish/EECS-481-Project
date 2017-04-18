@@ -56,7 +56,7 @@ def uploadParse_route():
         full_transcript = ""
         counter = 0
         partition_start = 0
-        segment_length = 5
+        segment_length = 120
         partition_length =  segment_length * 1000 # length partition
 
         while not done:
@@ -77,7 +77,7 @@ def uploadParse_route():
 
 
           # create temp file:
-          bash_command_begin = "./sox "
+          bash_command_begin = "sox "
           bash_command_end = " -t raw --channels=1 --bits=16 --rate=16000 --encoding=signed-integer --endian=little "
           output_file_name = "output_" + str(counter) + ".raw"
           full_bash_command = bash_command_begin + wav_input_file + bash_command_end + output_file_name
@@ -104,12 +104,12 @@ def uploadParse_route():
           output_file_name = "output_" + str(iter) + ".raw"
           uri_path = "gs://" + bucket_name + "/" + output_file_name
           all_speech_clients.append(speech.Client())
-          all_samples.append(all_speech_clients[iter].sample(source_uri=uri_path, encoding=speech.Encoding.LINEAR16, sample_rate=16000))
+          all_samples.append(all_speech_clients[iter].sample(source_uri=uri_path, encoding=speech.Encoding.LINEAR16, sample_rate_hertz=16000))
 
         all_operations = []
 
         for iter in range(counter):
-          all_operations.append(all_samples[iter].async_recognize(max_alternatives=1))
+          all_operations.append(all_samples[iter].long_running_recognize('en-US', max_alternatives=1))
 
         retry_count = 100
         while retry_count > 0 and not check_status(all_operations):
@@ -125,4 +125,3 @@ def uploadParse_route():
 				  full_transcript = full_transcript + " " + result.transcript
 		
         return(full_transcript)
-
